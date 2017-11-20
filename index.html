@@ -1,0 +1,397 @@
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<script type="text/javascript" src="./d3/d3.min.js"></script>
+		<style type="text/css">
+			/* No style rules here yet */		
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript">
+
+			//Width and height
+			var w = 800;
+			var h = 600;
+
+			//Define map projection
+			var projection = d3.geoAlbersUsa()
+								   .translate([180, 5*h/7])
+								   .scale([450]);
+
+			//Define path generator
+			var path = d3.geoPath()
+							 .projection(projection);
+							 
+			//Define quantize scale to sort data values into buckets of color
+			var color = d3.scaleQuantize()
+								.range(["rgb(224, 224, 224)","rgb(192,192,192)","rgb(160, 160, 160)","rgb(128, 128, 128)","rgb(96, 96, 96)","rgb(64, 64, 64)"]);
+								
+			var pack = d3.pack()
+						.size([3*w/4,3*h/4])
+						
+			//Create SVG element
+			var svg = d3.select("body")
+						.append("svg")
+						.attr("width", w)
+						.attr("height", h);
+						
+			// define global variables storing number of applicants by state
+			var g_json;
+			var maxValue; 
+			var minValue;
+			// add title
+		    svg.append("text") 
+            .attr("x", 20)
+            .attr("y",20)
+            .attr("font-size","13")
+		    .attr("font-weight","bold")
+			.attr("fill",'rgb(96,96,96)')
+            .text("Worksite Distribution of US Permnant Visa Applicantions (2017)")
+			
+            // add subtitle
+		    svg.append("text") 
+            .attr("x", 20)
+            .attr("y", 40)
+            .attr("font-size","10")
+			.attr("fill",'rgb(96,96,96)')
+            .text("as shown by the Top 10 Countries with High US Permanent Visa Applications ")
+			
+	        // add description columns
+			svg.append("text")
+			 .attr("id","year")
+			 .attr("x", 20)
+			 .attr("y", 90)
+			 .attr("font-size",16)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("Year: 2017");
+			
+			svg.append("text")
+			 .attr("id","country")
+			 .attr("x", 20)
+			 .attr("y", 120)
+			 .attr("font-size",16)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("Country:");
+			
+			svg.append("text")
+			 .attr("id","number")
+			 .attr("x", 20)
+			 .attr("y", 150)
+			 .attr("font-size",16)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("Total number of applications: 0");
+			
+			svg.append("text")
+			 .attr("id","number")
+			 .attr("x", 20)
+			 .attr("y", 200)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("Top 3 states by number of applications:");
+			
+			svg.append("text")
+			 .attr("id","firstState")
+			 .attr("x", 20)
+			 .attr("y", 230)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("1. ");
+			 
+			svg.append("text")
+			 .attr("id","secondState")
+			 .attr("x", 20)
+			 .attr("y", 260)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("2. ");
+			 
+			svg.append("text")
+			 .attr("id","thirdState")
+			 .attr("x", 20)
+			 .attr("y", 290)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("3. ");
+			 
+
+           //add legends
+			 var legend = svg.append("g")
+			 .attr("transform","translate("+(w/2-260)+","+(h-40)+")");
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(224, 224, 224)")
+			 .attr("x", -100)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable0")
+             .attr("x", -110)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+			 
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(192,192,192)")
+			 .attr("x", -60)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable1")
+             .attr("x", -70)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(160, 160, 160)")
+			 .attr("x", -20)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable2")
+             .attr("x", -30)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(128, 128, 128)")
+			 .attr("x", 20)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable3")
+             .attr("x", 10)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(96, 96, 96)")
+			 .attr("x", 60)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable4")
+             .attr("x", 50)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+	         legend.append("rect")
+			 .attr("width",40)
+			 .attr("height",20)
+			 .attr("fill","rgb(64, 64, 64)")
+			 .attr("x", 100)
+			 .attr("y",0);
+			 
+			 legend.append("text")
+			 .attr("id","llable5")
+             .attr("x", 90)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+	        
+			 
+			 legend.append("text")
+			 .attr("id","llable6")
+             .attr("x", 130)
+             .attr("y", 40)
+             .attr("font-size","10")
+             .text("0");
+			 
+			 
+			 
+			 legend.append("text")
+             .attr("x", -100)
+             .attr("y", -10)
+             .attr("font-size","12")
+             .text("number of applications (thousand)");
+		 
+			 // add the instruction
+			 svg.append("text")
+             .attr("x", w/2-30)
+             .attr("y", h-80)
+             .attr("font-size","20")
+			 .attr("fill",'steelblue')
+             .text("CLICK inside the country circle to learn more");
+					
+			d3.json("top10_17.json",function(data){
+				
+	            var nodes = d3.hierarchy(data)
+	              .sum(function(d) { return d.NUMBER; })
+
+				var node = svg.append("g")
+				    .attr("transform","translate("+w/3+","+"0)")
+				    .selectAll(".node")
+				    .data(pack(nodes).descendants())
+				    .enter()
+				    .append("g")
+				        .attr("class","node")
+				        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+				        
+				
+				node.append("circle")
+					.attr("r",function(d){return d.r})
+				    .attr("fill","steelblue")
+					.attr("opacity",0.25)
+					.attr("stroke","#ADADAD")
+					.attr("stroke-width","2")
+					.on("click",function(d){
+						d3.selectAll("circle")
+						 .attr("fill","steelblue");
+						 
+						 if(!d.children){
+						  d3.select(this)
+						  .attr("fill","rgb(102,51,0)");
+					     
+						   // link the map
+						  var country = d.data.COUNTRY_OF_CITIZENSHIP;
+						  var number = d.data.NUMBER;
+						  var state_num=[];
+		  				   
+   					      svg.selectAll("path")
+						  .each(function(d){
+								 var value = d.properties[country];
+								 state_num.push([d.properties.name,value]);	
+								
+						     });
+						
+							// set the domain specific to the country of interest 
+							 
+							 var minValue = d3.min(state_num, function(d) { return d[1]; });
+							 var maxValue = d3.max(state_num, function(d) { return d[1]; });
+							 color.domain([minValue, maxValue]);
+							
+  					        svg.selectAll("path")
+   					         .style("fill", function(d) {
+   					   		 //Get data value
+   					   		  var value = d.properties[country];	   		
+   						   	  return color(value);
+   					          });
+							
+							  // link to the description column
+							  svg.select("text#country")
+							  .text("Country: "+country);
+							  
+							  svg.select("text#number")
+							  .text("Total Number of Applications: "+number);
+							  
+							  // sort the state_num array to find out the first three
+							  state_num.sort(function(a,b){return b[1]-a[1]});
+							  var first_name = state_num[0][0];
+							  var first_num = state_num[0][1];
+							  var second_name = state_num[1][0];
+							  var second_num = state_num[1][1];
+							  var third_name = state_num[2][0];
+							  var third_num = state_num[2][1]; 
+							  
+							  svg.select("text#firstState")
+							  .text("1. "+first_name+"        "+first_num);
+							  
+							  svg.select("text#secondState")
+							  .text("2. "+second_name+"      "+second_num);
+							  
+							  svg.select("text#thirdState")
+							  .text("3. "+third_name+"        "+third_num);
+							  
+							  
+							  // link to the legend 
+							  var interval = (maxValue - minValue)/6;
+							  for(var i=0;i<=6;i=i+1){
+							  	  var number = minValue+i*interval;
+								  legend.select("text#"+"llable"+i).text((number/1000).toFixed(2));
+								
+							  }
+							  
+					         
+						 }
+						 
+						 else{
+   					      svg.selectAll("path")
+   					         .data(g_json.features)
+							 .style("fill",color(0));
+							 
+						  svg.select("text#country")
+						  .text("Country: ");
+						  
+						  svg.select("text#number")
+						  .text("Total Number of Applications: ");
+						  
+						  svg.select("text#firstState")
+						  .text("1. ");
+						  
+						  svg.select("text#secondState")
+						  .text("2. ");
+						  
+						  svg.select("text#thirdState")
+						  .text("3. ");
+						 }
+					});
+				
+		
+				node.append("text")
+					.style("text-anchor", "middle")
+					.text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP})
+					.attr("font-size","10")
+					.attr("pointer-events", "none");
+
+			});
+
+			
+			d3.csv("top10_17_state.csv", function(data) {
+				
+			
+				
+				color.domain([d3.min(data, function(d) { return +d.value; }), 
+					d3.max(data, function(d) { return +d.value; })]);
+               
+				//Load in GeoJSON data
+				d3.json("us-states.json", function(json) {
+				    g_json = json
+					for (var i = 0; i < data.length; i++) {			
+						
+						//Grab state name
+						var dataState = data[i].state;			
+						//Grab data value, and convert from string to float
+						var dataValue = parseFloat(data[i].value);		
+						//Find the corresponding state inside the GeoJSON
+						var country = data[i].COUNTRY_OF_CITIZENSHIP;
+						for (var j = 0; j < json.features.length; j++) {			
+							var jsonState = json.features[j].properties.name;
+							if (dataState == jsonState) {
+								g_json.features[j].properties[country]= dataValue;
+								//Stop looking through the JSON
+								break;
+							}
+						 }
+								
+					}
+					svg.selectAll("path")
+					   .data(g_json.features)
+					   .enter()
+					   .append("path")
+					   .attr("d", path)
+					   .style("fill", function(d) {
+						   	return color(0);
+					   });
+				});
+			
+				
+			
+			});
+			
+		</script>
+	</body>
+</html>
