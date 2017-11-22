@@ -15,7 +15,9 @@
 			//Width and height
 			var w = 800;
 			var h = 600;
-
+			
+			//default year
+            var defaultYear = "16";
 			//Define map projection
 			var projection = d3.geoAlbersUsa()
 								   .translate([180, 5*h/7])
@@ -30,7 +32,8 @@
 								.range(["rgb(224, 224, 224)","rgb(192,192,192)","rgb(160, 160, 160)","rgb(128, 128, 128)","rgb(96, 96, 96)","rgb(64, 64, 64)"]);
 								
 			var pack = d3.pack()
-						.size([3*w/4,3*h/4])
+					   .size([3*w/4,3*h/4]);
+						
 						
 			//Create SVG element
 			var svg = d3.select("body")
@@ -39,7 +42,7 @@
 						.attr("height", h);
 						
 			var defaultButton;
-			var defaultYear = "17";
+			
 			//container for all buttons
 			var allButtons= svg.append("g")
 						      .attr("transform","translate(20,50)")
@@ -55,7 +58,7 @@
 						       .attr("class","button")
 						       .style("cursor","pointer")
 			                   .each(function(d,i){
-			                   	   if(i==6)
+			                   	   if(i==5)
 									   defaultButton = this;
 			                   })
 			                   .on("click",function(d) {
@@ -63,7 +66,8 @@
 								   
 								   updateButtonColors(d3.select(this), d3.select(this.parentNode));
 								   
- 		  						  
+ 		  						   svg.selectAll("circle")
+								   .attr("fill","steelblue");
  	 							   svg.select("text#year")
  	 							      .text("Year: "+d);
 								   loadByYear(year_str);
@@ -119,8 +123,7 @@
 			}  
 			//define key function
 			var key = function(d) {
-				            
-;							return d.data.COUNTRY_OF_CITIZENSHIP;
+				return d.data.COUNTRY_OF_CITIZENSHIP;
 						};
 					    
 						
@@ -149,7 +152,7 @@
 			 .attr("y", 100)
 			 .attr("font-size",16)
 			 .attr("fill",'rgb(96,96,96)')
-			 .text("Year: 2017");
+			 .text("Year: 2016");
 			
 			
 			svg.append("text")
@@ -362,7 +365,7 @@
 	 		var minValue;
 				 
 	 		 d3.csv("top10_"+year+"_state.csv", function(data) {
-				
+				   
 			
 				
 	 				color.domain([d3.min(data, function(d) { return +d.value; }), 
@@ -404,23 +407,41 @@
 	 			});
 					
 			  d3.json("top10_"+year+".json",function(data){
+				 
 				
+			
 	            var nodes = d3.hierarchy(data)
 				  .sum(function(d) { return d.NUMBER; })
+				  .sort(function(a, b) { return a.NUMBER - b.NUMBER; });
 
-				
+				console.log(nodes);
 				 
 				 var update = svg.select("g#circles")
 				               .selectAll(".node")
-				               .data(pack(nodes).descendants(),key)
-				  
+				.data(pack(nodes).descendants(),key);
+				               
+						 
+						     update
+				             .transition()
+				             .duration(1500)
+				             .ease(d3.easeCubic)
+				             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+				             .select("circle")
+				             .attr("r",function(d){return d.r});
+							
+				         update.select("text")
+				            .text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP});
+      				  
 				   var  enter_g = update.enter()
-				               .append("g")
+							   .append("g")
 				               .attr("class","node")
-				               .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+							   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 					           
 						enter_g.append("circle")
-					           .attr("r",function(d){return d.r})
+							   .transition()
+				               .duration(1500)
+				               .ease(d3.easeCubic)
+					           .attr("r",function(d){return d.r;})
 				               .attr("fill","steelblue")
 					           .attr("opacity",0.25)
 					           .attr("stroke","#ADADAD")
@@ -433,29 +454,30 @@
 		   					.attr("font-size","10")
 		   					.attr("pointer-events", "none");
 							
-					    update.exit().remove();
+					    update.exit()
+							  .transition()
+							  .remove();
 				           
 						  
-						  enter_g.merge(update)
-						       .selectAll("circle")
-						       .attr("r",function(d){return d.r}) 
+						 enter_g.merge(update)
+						       .selectAll("circle")  
 					           .on("click",function(d){
 						          d3.selectAll("circle")
 						          .attr("fill","steelblue");
 						 
-						 if(!d.children){
-						  d3.select(this)
-						  .attr("fill","rgb(102,51,0)");
+						           if(!d.children){
+						           d3.select(this)
+						           .attr("fill","rgb(102,51,0)");
 					     
-						   // link the map
-						  var country = d.data.COUNTRY_OF_CITIZENSHIP;
-						  var number = d.data.NUMBER;
-						  var state_num=[];
+						           // link the map
+						           var country = d.data.COUNTRY_OF_CITIZENSHIP;
+						           var number = d.data.NUMBER;
+						           var state_num=[];
 		  				   
-   					      svg.selectAll("path")
-						  .each(function(d){
-								 var value = d.properties[country];
-								 state_num.push([d.properties.name,value]);	
+   					                svg.selectAll("path")
+						            .each(function(d){
+								    var value = d.properties[country];
+								    state_num.push([d.properties.name,value]);	
 								
 						     });
 						
