@@ -7,6 +7,9 @@
 		</style>
 	</head>
 	<body>
+		
+
+		
 		<script type="text/javascript">
 
 			//Width and height
@@ -35,10 +38,93 @@
 						.attr("width", w)
 						.attr("height", h);
 						
-			// define global variables storing number of applicants by state
-			var g_json;
-			var maxValue; 
-			var minValue;
+			var defaultButton;
+			var defaultYear = "17";
+			//container for all buttons
+			var allButtons= svg.append("g")
+						      .attr("transform","translate(20,50)")
+
+						//fontawesome button labels
+			var labels= ['2011','2012','2013','2014','2015','2016','2017'];
+
+						//groups for each button (which will hold a rect and text)
+			var buttonGroups= allButtons.selectAll("g.button")
+						       .data(labels)
+						       .enter()
+						       .append("g")
+						       .attr("class","button")
+						       .style("cursor","pointer")
+			                   .each(function(d,i){
+			                   	   if(i==6)
+									   defaultButton = this;
+			                   })
+			                   .on("click",function(d) {
+								   var year_str = d.substring(2);
+								   
+								   updateButtonColors(d3.select(this), d3.select(this.parentNode));
+								   
+ 		  						  
+ 	 							   svg.select("text#year")
+ 	 							      .text("Year: "+d);
+								   loadByYear(year_str);
+								   setDefaultColumn();
+								   setDefaultLegend();
+								   
+		  						  
+								    
+			                       })	
+								   
+			svg.append("g")
+				  .attr("id","circles")
+				  .attr("transform","translate("+w/3+","+"0)");				
+         
+			//button width and height
+			var bWidth= 40; //button width
+			var bHeight= 15; //button height
+			var x0= 0; //x offset
+			var y0= 0; //y offset
+			
+			var defaultColor= "lightblue"
+			var pressedColor= "grey"
+			var bSpace= 5;
+			
+            buttonGroups.append("rect")
+            .attr("class","buttonRect")
+            .attr("width",bWidth)
+            .attr("height",bHeight)
+            .attr("x",function(d,i) {
+                return x0+(bWidth+bSpace)*i;
+            })
+            .attr("y",y0)
+            .attr("fill","lightblue")
+			
+            buttonGroups.append("text")
+            .attr("class","buttonText")
+            .attr("font-family","FontAwesome")
+            .attr("x",function(d,i) {
+                return x0 + (bWidth+bSpace)*i + bWidth/2;
+            })
+            .attr("y",y0+bHeight/2)
+            .attr("text-anchor","middle")
+            .attr("dominant-baseline","central")
+            .attr("fill","white")
+            .text(function(d) {return d;}) 
+			
+			function updateButtonColors(button, parent) {
+			    parent.selectAll("rect")
+			            .attr("fill",defaultColor)
+
+			    button.select("rect")
+			            .attr("fill",pressedColor)
+			}  
+			//define key function
+			var key = function(d) {
+				            
+;							return d.data.COUNTRY_OF_CITIZENSHIP;
+						};
+					    
+						
+			
 			// add title
 		    svg.append("text") 
             .attr("x", 20)
@@ -46,7 +132,7 @@
             .attr("font-size","13")
 		    .attr("font-weight","bold")
 			.attr("fill",'rgb(96,96,96)')
-            .text("Worksite Distribution of US Permnant Visa Applicantions (2017)")
+            .text("Worksite Distribution of US Permnant Visa Applicantions (2011-2017)")
 			
             // add subtitle
 		    svg.append("text") 
@@ -60,15 +146,16 @@
 			svg.append("text")
 			 .attr("id","year")
 			 .attr("x", 20)
-			 .attr("y", 90)
+			 .attr("y", 100)
 			 .attr("font-size",16)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("Year: 2017");
 			
+			
 			svg.append("text")
 			 .attr("id","country")
 			 .attr("x", 20)
-			 .attr("y", 120)
+			 .attr("y", 130)
 			 .attr("font-size",16)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("Country:");
@@ -76,7 +163,7 @@
 			svg.append("text")
 			 .attr("id","number")
 			 .attr("x", 20)
-			 .attr("y", 150)
+			 .attr("y", 160)
 			 .attr("font-size",16)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("Total number of applications: 0");
@@ -112,11 +199,30 @@
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("3. ");
+		  
+		  function setDefaultColumn(){
+			  svg.select("text#country")
+			  .text("Country: ");
+			  
+			  svg.select("text#number")
+			  .text("Total number of applications: ");
+			
+			  svg.select("text#firstState")
+			  .text("1. ");
+			  
+			  svg.select("text#secondState")
+			  .text("2. ");
+			  
+			  svg.select("text#thirdState")
+			  .text("3. ");
+		  }
 			 
 
            //add legends
-			 var legend = svg.append("g")
+		  
+		  var legend = svg.append("g")
 			 .attr("transform","translate("+(w/2-260)+","+(h-40)+")");
+		 
 	         legend.append("rect")
 			 .attr("width",40)
 			 .attr("height",20)
@@ -125,6 +231,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable0")
              .attr("x", -110)
              .attr("y", 40)
@@ -140,6 +247,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable1")
              .attr("x", -70)
              .attr("y", 40)
@@ -154,6 +262,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable2")
              .attr("x", -30)
              .attr("y", 40)
@@ -168,6 +277,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable3")
              .attr("x", 10)
              .attr("y", 40)
@@ -182,6 +292,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable4")
              .attr("x", 50)
              .attr("y", 40)
@@ -196,6 +307,7 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable5")
              .attr("x", 90)
              .attr("y", 40)
@@ -205,6 +317,7 @@
 	        
 			 
 			 legend.append("text")
+			 .attr("class","llable")
 			 .attr("id","llable6")
              .attr("x", 130)
              .attr("y", 40)
@@ -218,6 +331,11 @@
              .attr("y", -10)
              .attr("font-size","12")
              .text("number of applications (thousand)");
+		
+		   function setDefaultLegend(){
+			legend.selectAll('text.llable')
+			  .text("0")
+		   }
 		 
 			 // add the instruction
 			 svg.append("text")
@@ -226,31 +344,104 @@
              .attr("font-size","20")
 			 .attr("fill",'steelblue')
              .text("CLICK inside the country circle to learn more");
+			 
+			 //default year, description and legend
+			 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
+			 loadByYear(defaultYear);
+		     setDefaultColumn();
+		     setDefaultLegend();
+			 
+			 
+			 
+			// load data for a specific year
+			function loadByYear(year){
+				 
+	 		// define ariables storing number of applicants by state
+	 		var g_json;
+	 		var maxValue; 
+	 		var minValue;
+				 
+	 		 d3.csv("top10_"+year+"_state.csv", function(data) {
+				
+			
+				
+	 				color.domain([d3.min(data, function(d) { return +d.value; }), 
+	 					d3.max(data, function(d) { return +d.value; })]);
+               
+	 				//Load in GeoJSON data
+	 				d3.json("us-states.json", function(json) {
+	 				    g_json = json
+	 					for (var i = 0; i < data.length; i++) {			
+						
+	 						//Grab state name
+	 						var dataState = data[i].state;			
+	 						//Grab data value, and convert from string to float
+	 						var dataValue = parseFloat(data[i].value);		
+	 						//Find the corresponding state inside the GeoJSON
+	 						var country = data[i].COUNTRY_OF_CITIZENSHIP;
+	 						for (var j = 0; j < json.features.length; j++) {			
+	 							var jsonState = json.features[j].properties.name;
+	 							if (dataState == jsonState) {
+	 								g_json.features[j].properties[country]= dataValue;
+	 								//Stop looking through the JSON
+	 								break;
+	 							}
+	 						 }
+								
+	 					}
+	 					svg.selectAll("path")
+	 					   .data(g_json.features)
+	 					   .enter()
+	 					   .append("path")
+	 					   .attr("d", path)
+	 					   .style("fill", function(d) {
+	 						   	return color(0);
+	 					   });
+	 				});
+			
+				
+			
+	 			});
 					
-			d3.json("top10_17.json",function(data){
+			  d3.json("top10_"+year+".json",function(data){
 				
 	            var nodes = d3.hierarchy(data)
-	              .sum(function(d) { return d.NUMBER; })
+				  .sum(function(d) { return d.NUMBER; })
 
-				var node = svg.append("g")
-				    .attr("transform","translate("+w/3+","+"0)")
-				    .selectAll(".node")
-				    .data(pack(nodes).descendants())
-				    .enter()
-				    .append("g")
-				        .attr("class","node")
-				        .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-				        
 				
-				node.append("circle")
-					.attr("r",function(d){return d.r})
-				    .attr("fill","steelblue")
-					.attr("opacity",0.25)
-					.attr("stroke","#ADADAD")
-					.attr("stroke-width","2")
-					.on("click",function(d){
-						d3.selectAll("circle")
-						 .attr("fill","steelblue");
+				 
+				 var update = svg.select("g#circles")
+				               .selectAll(".node")
+				               .data(pack(nodes).descendants(),key)
+				  
+				   var  enter_g = update.enter()
+				               .append("g")
+				               .attr("class","node")
+				               .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+					           
+						enter_g.append("circle")
+					           .attr("r",function(d){return d.r})
+				               .attr("fill","steelblue")
+					           .attr("opacity",0.25)
+					           .attr("stroke","#ADADAD")
+					           .attr("stroke-width","2")
+				      
+							   
+		   			    enter_g.append("text")
+		   					.style("text-anchor", "middle")
+		   					.text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP})
+		   					.attr("font-size","10")
+		   					.attr("pointer-events", "none");
+							
+					    update.exit().remove();
+				           
+						  
+						  enter_g.merge(update)
+						       .selectAll("circle")
+						       .attr("r",function(d){return d.r}) 
+					           .on("click",function(d){
+						          d3.selectAll("circle")
+						          .attr("fill","steelblue");
 						 
 						 if(!d.children){
 						  d3.select(this)
@@ -286,7 +477,7 @@
 							  .text("Country: "+country);
 							  
 							  svg.select("text#number")
-							  .text("Total Number of Applications: "+number);
+							  .text("Total number of applications: "+number);
 							  
 							  // sort the state_num array to find out the first three
 							  state_num.sort(function(a,b){return b[1]-a[1]});
@@ -339,59 +530,17 @@
 						  .text("3. ");
 						 }
 					});
-				
+
 		
-				node.append("text")
-					.style("text-anchor", "middle")
-					.text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP})
-					.attr("font-size","10")
-					.attr("pointer-events", "none");
+				    
+					
+					
 
 			});
 
 			
-			d3.csv("top10_17_state.csv", function(data) {
-				
 			
-				
-				color.domain([d3.min(data, function(d) { return +d.value; }), 
-					d3.max(data, function(d) { return +d.value; })]);
-               
-				//Load in GeoJSON data
-				d3.json("us-states.json", function(json) {
-				    g_json = json
-					for (var i = 0; i < data.length; i++) {			
-						
-						//Grab state name
-						var dataState = data[i].state;			
-						//Grab data value, and convert from string to float
-						var dataValue = parseFloat(data[i].value);		
-						//Find the corresponding state inside the GeoJSON
-						var country = data[i].COUNTRY_OF_CITIZENSHIP;
-						for (var j = 0; j < json.features.length; j++) {			
-							var jsonState = json.features[j].properties.name;
-							if (dataState == jsonState) {
-								g_json.features[j].properties[country]= dataValue;
-								//Stop looking through the JSON
-								break;
-							}
-						 }
-								
-					}
-					svg.selectAll("path")
-					   .data(g_json.features)
-					   .enter()
-					   .append("path")
-					   .attr("d", path)
-					   .style("fill", function(d) {
-						   	return color(0);
-					   });
-				});
-			
-				
-			
-			});
-			
+		}
 		</script>
 	</body>
 </html>

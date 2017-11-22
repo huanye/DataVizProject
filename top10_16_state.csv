@@ -1,0 +1,501 @@
+"","COUNTRY_OF_CITIZENSHIP","state","value"
+"1","Canada","Alabama",22
+"2","China","Alabama",31
+"3","India","Alabama",91
+"4","Mexico","Alabama",19
+"5","Pakistan","Alabama",12
+"6","Philippines","Alabama",22
+"7","South Korea","Alabama",315
+"8","Taiwan","Alabama",1
+"9","UK","Alabama",3
+"10","Vietnam","Alabama",1
+"11","Canada","Alaska",6
+"12","China","Alaska",2
+"13","India","Alaska",5
+"14","Mexico","Alaska",1
+"15","Pakistan","Alaska",1
+"16","Philippines","Alaska",4
+"17","South Korea","Alaska",9
+"18","Taiwan","Alaska",0
+"19","UK","Alaska",1
+"20","Vietnam","Alaska",0
+"21","Canada","Arizona",51
+"22","China","Arizona",80
+"23","India","Arizona",873
+"24","Mexico","Arizona",56
+"25","Pakistan","Arizona",6
+"26","Philippines","Arizona",66
+"27","South Korea","Arizona",57
+"28","Taiwan","Arizona",9
+"29","UK","Arizona",9
+"30","Vietnam","Arizona",1
+"31","Canada","Arkansas",10
+"32","China","Arkansas",25
+"33","India","Arkansas",154
+"34","Mexico","Arkansas",18
+"35","Pakistan","Arkansas",5
+"36","Philippines","Arkansas",5
+"37","South Korea","Arkansas",248
+"38","Taiwan","Arkansas",3
+"39","UK","Arkansas",3
+"40","Vietnam","Arkansas",39
+"41","Canada","California",1212
+"42","China","California",3869
+"43","India","California",14667
+"44","Mexico","California",457
+"45","Pakistan","California",127
+"46","Philippines","California",626
+"47","South Korea","California",2315
+"48","Taiwan","California",634
+"49","UK","California",386
+"50","Vietnam","California",169
+"51","Canada","Colorado",42
+"52","China","Colorado",86
+"53","India","Colorado",505
+"54","Mexico","Colorado",46
+"55","Pakistan","Colorado",4
+"56","Philippines","Colorado",25
+"57","South Korea","Colorado",34
+"58","Taiwan","Colorado",6
+"59","UK","Colorado",19
+"60","Vietnam","Colorado",5
+"61","Canada","Connecticut",43
+"62","China","Connecticut",88
+"63","India","Connecticut",691
+"64","Mexico","Connecticut",22
+"65","Pakistan","Connecticut",8
+"66","Philippines","Connecticut",14
+"67","South Korea","Connecticut",39
+"68","Taiwan","Connecticut",7
+"69","UK","Connecticut",20
+"70","Vietnam","Connecticut",2
+"71","Canada","Delaware",6
+"72","China","Delaware",65
+"73","India","Delaware",360
+"74","Mexico","Delaware",5
+"75","Pakistan","Delaware",3
+"76","Philippines","Delaware",6
+"77","South Korea","Delaware",48
+"78","Taiwan","Delaware",2
+"79","UK","Delaware",1
+"80","Vietnam","Delaware",84
+"81","Canada","Florida",148
+"82","China","Florida",116
+"83","India","Florida",1330
+"84","Mexico","Florida",120
+"85","Pakistan","Florida",36
+"86","Philippines","Florida",53
+"87","South Korea","Florida",86
+"88","Taiwan","Florida",19
+"89","UK","Florida",82
+"90","Vietnam","Florida",51
+"91","Canada","Georgia",69
+"92","China","Georgia",288
+"93","India","Georgia",2133
+"94","Mexico","Georgia",65
+"95","Pakistan","Georgia",33
+"96","Philippines","Georgia",24
+"97","South Korea","Georgia",1115
+"98","Taiwan","Georgia",18
+"99","UK","Georgia",24
+"100","Vietnam","Georgia",195
+"101","Canada","Hawaii",7
+"102","China","Hawaii",7
+"103","India","Hawaii",4
+"104","Mexico","Hawaii",1
+"105","Pakistan","Hawaii",0
+"106","Philippines","Hawaii",3
+"107","South Korea","Hawaii",31
+"108","Taiwan","Hawaii",1
+"109","UK","Hawaii",1
+"110","Vietnam","Hawaii",2
+"111","Canada","Idaho",9
+"112","China","Idaho",21
+"113","India","Idaho",45
+"114","Mexico","Idaho",1
+"115","Pakistan","Idaho",1
+"116","Philippines","Idaho",3
+"117","South Korea","Idaho",8
+"118","Taiwan","Idaho",2
+"119","UK","Idaho",1
+"120","Vietnam","Idaho",0
+"121","Canada","Illinois",136
+"122","China","Illinois",317
+"123","India","Illinois",3135
+"124","Mexico","Illinois",61
+"125","Pakistan","Illinois",59
+"126","Philippines","Illinois",62
+"127","South Korea","Illinois",214
+"128","Taiwan","Illinois",23
+"129","UK","Illinois",44
+"130","Vietnam","Illinois",6
+"131","Canada","Indiana",43
+"132","China","Indiana",85
+"133","India","Indiana",569
+"134","Mexico","Indiana",27
+"135","Pakistan","Indiana",11
+"136","Philippines","Indiana",13
+"137","South Korea","Indiana",38
+"138","Taiwan","Indiana",10
+"139","UK","Indiana",5
+"140","Vietnam","Indiana",3
+"141","Canada","Iowa",19
+"142","China","Iowa",31
+"143","India","Iowa",252
+"144","Mexico","Iowa",6
+"145","Pakistan","Iowa",9
+"146","Philippines","Iowa",8
+"147","South Korea","Iowa",15
+"148","Taiwan","Iowa",2
+"149","UK","Iowa",6
+"150","Vietnam","Iowa",19
+"151","Canada","Kansas",18
+"152","China","Kansas",20
+"153","India","Kansas",213
+"154","Mexico","Kansas",12
+"155","Pakistan","Kansas",2
+"156","Philippines","Kansas",17
+"157","South Korea","Kansas",12
+"158","Taiwan","Kansas",2
+"159","UK","Kansas",5
+"160","Vietnam","Kansas",1
+"161","Canada","Kentucky",13
+"162","China","Kentucky",16
+"163","India","Kentucky",352
+"164","Mexico","Kentucky",12
+"165","Pakistan","Kentucky",9
+"166","Philippines","Kentucky",42
+"167","South Korea","Kentucky",20
+"168","Taiwan","Kentucky",0
+"169","UK","Kentucky",7
+"170","Vietnam","Kentucky",2
+"171","Canada","Louisiana",9
+"172","China","Louisiana",23
+"173","India","Louisiana",104
+"174","Mexico","Louisiana",39
+"175","Pakistan","Louisiana",3
+"176","Philippines","Louisiana",17
+"177","South Korea","Louisiana",45
+"178","Taiwan","Louisiana",3
+"179","UK","Louisiana",10
+"180","Vietnam","Louisiana",3
+"181","Canada","Maine",10
+"182","China","Maine",4
+"183","India","Maine",41
+"184","Mexico","Maine",0
+"185","Pakistan","Maine",2
+"186","Philippines","Maine",4
+"187","South Korea","Maine",1
+"188","Taiwan","Maine",0
+"189","UK","Maine",0
+"190","Vietnam","Maine",0
+"191","Canada","Maryland",40
+"192","China","Maryland",108
+"193","India","Maryland",827
+"194","Mexico","Maryland",23
+"195","Pakistan","Maryland",38
+"196","Philippines","Maryland",80
+"197","South Korea","Maryland",107
+"198","Taiwan","Maryland",6
+"199","UK","Maryland",15
+"200","Vietnam","Maryland",12
+"201","Canada","Massachusetts",131
+"202","China","Massachusetts",427
+"203","India","Massachusetts",2622
+"204","Mexico","Massachusetts",27
+"205","Pakistan","Massachusetts",29
+"206","Philippines","Massachusetts",15
+"207","South Korea","Massachusetts",65
+"208","Taiwan","Massachusetts",27
+"209","UK","Massachusetts",57
+"210","Vietnam","Massachusetts",12
+"211","Canada","Michigan",151
+"212","China","Michigan",185
+"213","India","Michigan",2681
+"214","Mexico","Michigan",105
+"215","Pakistan","Michigan",32
+"216","Philippines","Michigan",34
+"217","South Korea","Michigan",102
+"218","Taiwan","Michigan",18
+"219","UK","Michigan",32
+"220","Vietnam","Michigan",3
+"221","Canada","Minnesota",36
+"222","China","Minnesota",61
+"223","India","Minnesota",477
+"224","Mexico","Minnesota",30
+"225","Pakistan","Minnesota",18
+"226","Philippines","Minnesota",13
+"227","South Korea","Minnesota",35
+"228","Taiwan","Minnesota",16
+"229","UK","Minnesota",8
+"230","Vietnam","Minnesota",8
+"231","Canada","Mississippi",4
+"232","China","Mississippi",12
+"233","India","Mississippi",48
+"234","Mexico","Mississippi",6
+"235","Pakistan","Mississippi",7
+"236","Philippines","Mississippi",2
+"237","South Korea","Mississippi",22
+"238","Taiwan","Mississippi",4
+"239","UK","Mississippi",2
+"240","Vietnam","Mississippi",30
+"241","Canada","Missouri",28
+"242","China","Missouri",93
+"243","India","Missouri",619
+"244","Mexico","Missouri",23
+"245","Pakistan","Missouri",23
+"246","Philippines","Missouri",16
+"247","South Korea","Missouri",104
+"248","Taiwan","Missouri",5
+"249","UK","Missouri",10
+"250","Vietnam","Missouri",4
+"251","Canada","Montana",10
+"252","China","Montana",5
+"253","India","Montana",7
+"254","Mexico","Montana",2
+"255","Pakistan","Montana",0
+"256","Philippines","Montana",8
+"257","South Korea","Montana",7
+"258","Taiwan","Montana",0
+"259","UK","Montana",2
+"260","Vietnam","Montana",1
+"261","Canada","Nebraska",3
+"262","China","Nebraska",34
+"263","India","Nebraska",232
+"264","Mexico","Nebraska",1
+"265","Pakistan","Nebraska",3
+"266","Philippines","Nebraska",3
+"267","South Korea","Nebraska",41
+"268","Taiwan","Nebraska",0
+"269","UK","Nebraska",3
+"270","Vietnam","Nebraska",37
+"271","Canada","Nevada",13
+"272","China","Nevada",12
+"273","India","Nevada",69
+"274","Mexico","Nevada",6
+"275","Pakistan","Nevada",2
+"276","Philippines","Nevada",13
+"277","South Korea","Nevada",32
+"278","Taiwan","Nevada",2
+"279","UK","Nevada",6
+"280","Vietnam","Nevada",0
+"281","Canada","New Hampshire",17
+"282","China","New Hampshire",13
+"283","India","New Hampshire",166
+"284","Mexico","New Hampshire",2
+"285","Pakistan","New Hampshire",4
+"286","Philippines","New Hampshire",3
+"287","South Korea","New Hampshire",2
+"288","Taiwan","New Hampshire",0
+"289","UK","New Hampshire",7
+"290","Vietnam","New Hampshire",0
+"291","Canada","New Jersey",88
+"292","China","New Jersey",248
+"293","India","New Jersey",7952
+"294","Mexico","New Jersey",76
+"295","Pakistan","New Jersey",63
+"296","Philippines","New Jersey",88
+"297","South Korea","New Jersey",409
+"298","Taiwan","New Jersey",26
+"299","UK","New Jersey",47
+"300","Vietnam","New Jersey",6
+"301","Canada","New Mexico",12
+"302","China","New Mexico",6
+"303","India","New Mexico",60
+"304","Mexico","New Mexico",14
+"305","Pakistan","New Mexico",5
+"306","Philippines","New Mexico",108
+"307","South Korea","New Mexico",15
+"308","Taiwan","New Mexico",2
+"309","UK","New Mexico",3
+"310","Vietnam","New Mexico",1
+"311","Canada","New York",481
+"312","China","New York",965
+"313","India","New York",3292
+"314","Mexico","New York",210
+"315","Pakistan","New York",71
+"316","Philippines","New York",177
+"317","South Korea","New York",773
+"318","Taiwan","New York",101
+"319","UK","New York",295
+"320","Vietnam","New York",25
+"321","Canada","North Carolina",75
+"322","China","North Carolina",380
+"323","India","North Carolina",1274
+"324","Mexico","North Carolina",69
+"325","Pakistan","North Carolina",19
+"326","Philippines","North Carolina",29
+"327","South Korea","North Carolina",793
+"328","Taiwan","North Carolina",21
+"329","UK","North Carolina",41
+"330","Vietnam","North Carolina",209
+"331","Canada","North Dakota",15
+"332","China","North Dakota",3
+"333","India","North Dakota",36
+"334","Mexico","North Dakota",5
+"335","Pakistan","North Dakota",3
+"336","Philippines","North Dakota",18
+"337","South Korea","North Dakota",2
+"338","Taiwan","North Dakota",1
+"339","UK","North Dakota",1
+"340","Vietnam","North Dakota",0
+"341","Canada","Ohio",62
+"342","China","Ohio",140
+"343","India","Ohio",1168
+"344","Mexico","Ohio",55
+"345","Pakistan","Ohio",18
+"346","Philippines","Ohio",6
+"347","South Korea","Ohio",301
+"348","Taiwan","Ohio",11
+"349","UK","Ohio",24
+"350","Vietnam","Ohio",14
+"351","Canada","Oklahoma",14
+"352","China","Oklahoma",24
+"353","India","Oklahoma",111
+"354","Mexico","Oklahoma",27
+"355","Pakistan","Oklahoma",14
+"356","Philippines","Oklahoma",5
+"357","South Korea","Oklahoma",24
+"358","Taiwan","Oklahoma",5
+"359","UK","Oklahoma",6
+"360","Vietnam","Oklahoma",1
+"361","Canada","Oregon",56
+"362","China","Oregon",112
+"363","India","Oregon",777
+"364","Mexico","Oregon",22
+"365","Pakistan","Oregon",6
+"366","Philippines","Oregon",7
+"367","South Korea","Oregon",62
+"368","Taiwan","Oregon",30
+"369","UK","Oregon",9
+"370","Vietnam","Oregon",4
+"371","Canada","Pennsylvania",82
+"372","China","Pennsylvania",161
+"373","India","Pennsylvania",1811
+"374","Mexico","Pennsylvania",56
+"375","Pakistan","Pennsylvania",42
+"376","Philippines","Pennsylvania",65
+"377","South Korea","Pennsylvania",107
+"378","Taiwan","Pennsylvania",12
+"379","UK","Pennsylvania",27
+"380","Vietnam","Pennsylvania",4
+"381","Canada","Rhode Island",8
+"382","China","Rhode Island",8
+"383","India","Rhode Island",123
+"384","Mexico","Rhode Island",8
+"385","Pakistan","Rhode Island",2
+"386","Philippines","Rhode Island",1
+"387","South Korea","Rhode Island",2
+"388","Taiwan","Rhode Island",2
+"389","UK","Rhode Island",5
+"390","Vietnam","Rhode Island",2
+"391","Canada","South Carolina",20
+"392","China","South Carolina",336
+"393","India","South Carolina",160
+"394","Mexico","South Carolina",13
+"395","Pakistan","South Carolina",5
+"396","Philippines","South Carolina",14
+"397","South Korea","South Carolina",357
+"398","Taiwan","South Carolina",21
+"399","UK","South Carolina",5
+"400","Vietnam","South Carolina",30
+"401","Canada","South Dakota",8
+"402","China","South Dakota",3
+"403","India","South Dakota",12
+"404","Mexico","South Dakota",2
+"405","Pakistan","South Dakota",1
+"406","Philippines","South Dakota",5
+"407","South Korea","South Dakota",1
+"408","Taiwan","South Dakota",0
+"409","UK","South Dakota",1
+"410","Vietnam","South Dakota",0
+"411","Canada","Tennessee",16
+"412","China","Tennessee",118
+"413","India","Tennessee",362
+"414","Mexico","Tennessee",37
+"415","Pakistan","Tennessee",11
+"416","Philippines","Tennessee",5
+"417","South Korea","Tennessee",58
+"418","Taiwan","Tennessee",2
+"419","UK","Tennessee",7
+"420","Vietnam","Tennessee",2
+"421","Canada","Texas",349
+"422","China","Texas",658
+"423","India","Texas",11518
+"424","Mexico","Texas",677
+"425","Pakistan","Texas",297
+"426","Philippines","Texas",191
+"427","South Korea","Texas",757
+"428","Taiwan","Texas",113
+"429","UK","Texas",125
+"430","Vietnam","Texas",197
+"431","Canada","Utah",20
+"432","China","Utah",46
+"433","India","Utah",195
+"434","Mexico","Utah",16
+"435","Pakistan","Utah",1
+"436","Philippines","Utah",7
+"437","South Korea","Utah",35
+"438","Taiwan","Utah",1
+"439","UK","Utah",7
+"440","Vietnam","Utah",0
+"441","Canada","Vermont",12
+"442","China","Vermont",8
+"443","India","Vermont",65
+"444","Mexico","Vermont",0
+"445","Pakistan","Vermont",0
+"446","Philippines","Vermont",1
+"447","South Korea","Vermont",2
+"448","Taiwan","Vermont",0
+"449","UK","Vermont",0
+"450","Vietnam","Vermont",0
+"451","Canada","Virginia",77
+"452","China","Virginia",227
+"453","India","Virginia",2233
+"454","Mexico","Virginia",66
+"455","Pakistan","Virginia",83
+"456","Philippines","Virginia",60
+"457","South Korea","Virginia",642
+"458","Taiwan","Virginia",14
+"459","UK","Virginia",32
+"460","Vietnam","Virginia",23
+"461","Canada","Washington",592
+"462","China","Washington",1048
+"463","India","Washington",3346
+"464","Mexico","Washington",114
+"465","Pakistan","Washington",56
+"466","Philippines","Washington",36
+"467","South Korea","Washington",140
+"468","Taiwan","Washington",62
+"469","UK","Washington",75
+"470","Vietnam","Washington",37
+"471","Canada","West Virginia",5
+"472","China","West Virginia",8
+"473","India","West Virginia",40
+"474","Mexico","West Virginia",2
+"475","Pakistan","West Virginia",7
+"476","Philippines","West Virginia",2
+"477","South Korea","West Virginia",8
+"478","Taiwan","West Virginia",0
+"479","UK","West Virginia",3
+"480","Vietnam","West Virginia",0
+"481","Canada","Wisconsin",45
+"482","China","Wisconsin",157
+"483","India","Wisconsin",570
+"484","Mexico","Wisconsin",16
+"485","Pakistan","Wisconsin",11
+"486","Philippines","Wisconsin",20
+"487","South Korea","Wisconsin",395
+"488","Taiwan","Wisconsin",6
+"489","UK","Wisconsin",16
+"490","Vietnam","Wisconsin",7
+"491","Canada","Wyoming",0
+"492","China","Wyoming",2
+"493","India","Wyoming",4
+"494","Mexico","Wyoming",7
+"495","Pakistan","Wyoming",0
+"496","Philippines","Wyoming",1
+"497","South Korea","Wyoming",0
+"498","Taiwan","Wyoming",0
+"499","UK","Wyoming",0
+"500","Vietnam","Wyoming",1
