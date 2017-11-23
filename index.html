@@ -67,7 +67,7 @@
 								   var year_str = d.substring(2);
 								   
 								   updateButtonColors(d3.select(this), d3.select(this.parentNode));
-								   
+								   // clear pack bubble, map and update year
  		  						   svg.selectAll("circle")
 								   .attr("fill","steelblue");
  	 							   
@@ -77,10 +77,20 @@
 									  .duration(1000)
 									  .style("opacity", 1)
  	 							      .text(d);
+									  
+   			 					   svg.selectAll("path")
+									  .style("fill", function(d) {
+   			 						   	return color(0);
+   			 					   });
 								   
+								   // load data
 								   loadByYear(year_str);
+								   
+								   // clear description column and map legend
 								   setDefaultColumn();
 								   setDefaultLegend();
+								   
+			 					
 								   
 		  						  
 								    
