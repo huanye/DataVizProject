@@ -203,15 +203,15 @@
 			svg.append("text")
 			 .attr("id","number")
 			 .attr("x", 20)
-			 .attr("y", 200)
+			 .attr("y", 195)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
-			 .text("Top 3 states by number of applications:");
+			 .text("Top 5 states by number of applications:");
 			
 			svg.append("text")
 			 //.attr("id","firstState")
 			 .attr("x", 20)
-			 .attr("y", 230)
+			 .attr("y", 220)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("1. ");
@@ -219,15 +219,15 @@
 			svg.append("text")
 			 .attr("id","firstState")
 			 .attr("x", 40)
-			 .attr("y", 230)
+			 .attr("y", 220)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
 			 
 			svg.append("text")
 			 .attr("id","firstState1")
-			 .attr("x", 150)
-			 .attr("y", 230)
+			 .attr("x", 220)
+			 .attr("y", 220)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
@@ -235,7 +235,7 @@
 			svg.append("text")
 			 //.attr("id","secondState")
 			 .attr("x", 20)
-			 .attr("y", 260)
+			 .attr("y", 240)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("2. ");
@@ -243,15 +243,15 @@
 			svg.append("text")
 			 .attr("id","secondState")
 			 .attr("x", 40)
-			 .attr("y", 260)
+			 .attr("y", 240)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
 			 
 			svg.append("text")
 			 .attr("id","secondState1")
-			 .attr("x", 150)
-			 .attr("y", 260)
+			 .attr("x", 220)
+			 .attr("y", 240)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
@@ -259,7 +259,7 @@
 			svg.append("text")
 			 //.attr("id","thirdState")
 			 .attr("x", 20)
-			 .attr("y", 290)
+			 .attr("y", 260)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("3. ");
@@ -267,19 +267,67 @@
 			svg.append("text")
 			 .attr("id","thirdState")
 			 .attr("x", 40)
-			 .attr("y", 290)
+			 .attr("y", 260)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
 			 
 			svg.append("text")
 			 .attr("id","thirdState1")
-			 .attr("x", 150)
-			 .attr("y", 290)
+			 .attr("x", 220)
+			 .attr("y", 260)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("");
 		  
+		  
+			svg.append("text")
+			 //.attr("id","thirdState")
+			 .attr("x", 20)
+			 .attr("y", 280)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("4. ");
+			 
+			svg.append("text")
+			 .attr("id","fourthState")
+			 .attr("x", 40)
+			 .attr("y", 280)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 .attr("id","fourthState1")
+			 .attr("x", 220)
+			 .attr("y", 280)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 //.attr("id","thirdState")
+			 .attr("x", 20)
+			 .attr("y", 300)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("5. ");
+			 
+			svg.append("text")
+			 .attr("id","fifthState")
+			 .attr("x", 40)
+			 .attr("y", 300)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 .attr("id","fifthState1")
+			 .attr("x", 220)
+			 .attr("y", 300)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
 		  function setDefaultColumn(){
 			  
 		      svg.select("text#year")
@@ -307,6 +355,18 @@
 			  .text("");
 			  
 			  svg.select("text#thirdState1")
+			  .text("");
+			  
+			  svg.select("text#fourthState")
+			  .text("");
+			  
+			  svg.select("text#fourthState1")
+			  .text("");
+			  
+			  svg.select("text#fifthState")
+			  .text("");
+			  
+			  svg.select("text#fifthState1")
 			  .text("");
 		  }
 			 
@@ -451,10 +511,9 @@
 				 
 	 		// define variables storing number of applications by state
 	 		var g_json;
-	 		var maxValue; 
-	 		var minValue;
+			
 				 
-	 		 d3.csv("top10_"+year+"_state.csv", function(data) {
+	 		d3.csv("top10_"+year+"_state.csv", function(data) {
 				   
 			
 				
@@ -617,6 +676,10 @@
 							         var second_num = state_num[1][1];
 							         var third_name = state_num[2][0];
 							         var third_num = state_num[2][1]; 
+							         var fourth_name = state_num[3][0];
+							         var fourth_num = state_num[3][1]; 
+							         var fifth_name = state_num[4][0];
+							         var fifth_num = state_num[4][1]; 
 							  
 							         svg.select("text#firstState")
                                         .style("opacity", 0)
@@ -659,6 +722,34 @@
 									    .duration(1000)
 									    .style("opacity", 1)
 							            .text(third_num);
+										
+							         svg.select("text#fourthState")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(fourth_name);
+										
+							         svg.select("text#fourthState1")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(fourth_num);
+							         
+									 svg.select("text#fifthState")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(fifth_name);
+										
+							         svg.select("text#fifthState1")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(fifth_num);
 							  
 							  
 							         // link to the legend 
@@ -691,7 +782,29 @@
 						  
 						  svg.select("text#thirdState")
 						  .text("");
+						  
+						  svg.select("text#fourthState")
+						  .text("");
+						  
+						  svg.select("text#fifthState")
+						  .text("");
+						  
+						  svg.select("text#firstState1")
+						  .text("");
+						  
+						  svg.select("text#secondState1")
+						  .text("");
+						  
+						  svg.select("text#thirdState1")
+						  .text("");
+						  
+						  svg.select("text#fourthState1")
+						  .text("");
+						  
+						  svg.select("text#fifthState1")
+						  .text("");
 						 }
+						 
 					});
 
 		
