@@ -25,14 +25,16 @@
 
 			//Define path generator
 			var path = d3.geoPath()
-							 .projection(projection);
+						.projection(projection);
 							 
 			//Define quantize scale to sort data values into buckets of color
 			var color = d3.scaleQuantize()
-								.range(["rgb(224, 224, 224)","rgb(192,192,192)","rgb(160, 160, 160)","rgb(128, 128, 128)","rgb(96, 96, 96)","rgb(64, 64, 64)"]);
+						  .range(["rgb(224, 224, 224)","rgb(192,192,192)","rgb(160, 160, 160)","rgb(128, 128, 128)","rgb(96, 96, 96)","rgb(64, 64, 64)"]);
 								
 			var pack = d3.pack()
-					   .size([3*w/4,3*h/4]);
+					   .size([3*w/4,3*h/4])
+					   .radius(function(d){return Math.sqrt(d.data.NUMBER)/1.8;});
+					  // .radius(function(d){return d.data.NUMBER;});
 						
 						
 			//Create SVG element
@@ -47,10 +49,10 @@
 			var allButtons= svg.append("g")
 						      .attr("transform","translate(20,50)")
 
-						//fontawesome button labels
+		    // button labels
 			var labels= ['2011','2012','2013','2014','2015','2016','2017'];
 
-						//groups for each button (which will hold a rect and text)
+			//groups for each button (which will hold a rect and text)
 			var buttonGroups= allButtons.selectAll("g.button")
 						       .data(labels)
 						       .enter()
@@ -59,7 +61,7 @@
 						       .style("cursor","pointer")
 			                   .each(function(d,i){
 			                   	   if(i==5)
-									   defaultButton = this;
+								   defaultButton = this;
 			                   })
 			                   .on("click",function(d) {
 								   var year_str = d.substring(2);
@@ -68,8 +70,14 @@
 								   
  		  						   svg.selectAll("circle")
 								   .attr("fill","steelblue");
- 	 							   svg.select("text#year")
- 	 							      .text("Year: "+d);
+ 	 							   
+								   svg.select("text#year")
+                                      .style("opacity", 0)
+									  .transition()
+									  .duration(1000)
+									  .style("opacity", 1)
+ 	 							      .text(d);
+								   
 								   loadByYear(year_str);
 								   setDefaultColumn();
 								   setDefaultLegend();
@@ -124,7 +132,7 @@
 			//define key function
 			var key = function(d) {
 				return d.data.COUNTRY_OF_CITIZENSHIP;
-						};
+			};
 					    
 						
 			
@@ -135,7 +143,7 @@
             .attr("font-size","13")
 		    .attr("font-weight","bold")
 			.attr("fill",'rgb(96,96,96)')
-            .text("Worksite Distribution of US Permnant Visa Applicantions (2011-2017)")
+            .text("Worksite Distribution of US Permnant Visa Applications (2011-2017)")
 			
             // add subtitle
 		    svg.append("text") 
@@ -143,33 +151,54 @@
             .attr("y", 40)
             .attr("font-size","10")
 			.attr("fill",'rgb(96,96,96)')
-            .text("as shown by the Top 10 Countries with High US Permanent Visa Applications ")
+            .text("as shown by the Top 10 Countries with High US Permanent Visa Applications each year")
 			
 	        // add description columns
 			svg.append("text")
-			 .attr("id","year")
 			 .attr("x", 20)
 			 .attr("y", 100)
-			 .attr("font-size",16)
+			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
-			 .text("Year: 2016");
+			 .text("Year:");
+			 
+			svg.append("text")
+			 .attr("id","year")
+			 .attr("x", 60)
+			 .attr("y", 100)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
 			
 			
 			svg.append("text")
-			 .attr("id","country")
 			 .attr("x", 20)
 			 .attr("y", 130)
-			 .attr("font-size",16)
+			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("Country:");
+			 
+		   svg.append("text")
+			 .attr("id","country")
+			 .attr("x", 85)
+			 .attr("y", 130)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("rr");
+			
+			svg.append("text")
+			 .attr("x", 20)
+			 .attr("y", 160)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("Total number of applications: ");
 			
 			svg.append("text")
 			 .attr("id","number")
-			 .attr("x", 20)
+			 .attr("x", 220)
 			 .attr("y", 160)
-			 .attr("font-size",16)
+			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
-			 .text("Total number of applications: 0");
+			 .text("");
 			
 			svg.append("text")
 			 .attr("id","number")
@@ -180,7 +209,7 @@
 			 .text("Top 3 states by number of applications:");
 			
 			svg.append("text")
-			 .attr("id","firstState")
+			 //.attr("id","firstState")
 			 .attr("x", 20)
 			 .attr("y", 230)
 			 .attr("font-size",14)
@@ -188,7 +217,23 @@
 			 .text("1. ");
 			 
 			svg.append("text")
-			 .attr("id","secondState")
+			 .attr("id","firstState")
+			 .attr("x", 40)
+			 .attr("y", 230)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 .attr("id","firstState1")
+			 .attr("x", 150)
+			 .attr("y", 230)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 //.attr("id","secondState")
 			 .attr("x", 20)
 			 .attr("y", 260)
 			 .attr("font-size",14)
@@ -196,28 +241,73 @@
 			 .text("2. ");
 			 
 			svg.append("text")
-			 .attr("id","thirdState")
+			 .attr("id","secondState")
+			 .attr("x", 40)
+			 .attr("y", 260)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 .attr("id","secondState1")
+			 .attr("x", 150)
+			 .attr("y", 260)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 //.attr("id","thirdState")
 			 .attr("x", 20)
 			 .attr("y", 290)
 			 .attr("font-size",14)
 			 .attr("fill",'rgb(96,96,96)')
 			 .text("3. ");
+			 
+			svg.append("text")
+			 .attr("id","thirdState")
+			 .attr("x", 40)
+			 .attr("y", 290)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
+			 
+			svg.append("text")
+			 .attr("id","thirdState1")
+			 .attr("x", 150)
+			 .attr("y", 290)
+			 .attr("font-size",14)
+			 .attr("fill",'rgb(96,96,96)')
+			 .text("");
 		  
 		  function setDefaultColumn(){
+			  
+		      svg.select("text#year")
+              .text("2016")
+			  
 			  svg.select("text#country")
-			  .text("Country: ");
+			  .text("");
 			  
 			  svg.select("text#number")
-			  .text("Total number of applications: ");
+			  .text("");
 			
 			  svg.select("text#firstState")
-			  .text("1. ");
+			  .text("");
+			  
+			  svg.select("text#firstState1")
+			  .text("");
 			  
 			  svg.select("text#secondState")
-			  .text("2. ");
+			  .text("");
+			  
+			  svg.select("text#secondState1")
+			  .text("");
 			  
 			  svg.select("text#thirdState")
-			  .text("3. ");
+			  .text("");
+			  
+			  svg.select("text#thirdState1")
+			  .text("");
 		  }
 			 
 
@@ -335,10 +425,10 @@
              .attr("font-size","12")
              .text("number of applications (thousand)");
 		
-		   function setDefaultLegend(){
-			legend.selectAll('text.llable')
-			  .text("0")
-		   }
+		     function setDefaultLegend(){
+			   legend.selectAll('text.llable')
+			         .text("0")
+		     }
 		 
 			 // add the instruction
 			 svg.append("text")
@@ -359,7 +449,7 @@
 			// load data for a specific year
 			function loadByYear(year){
 				 
-	 		// define ariables storing number of applicants by state
+	 		// define variables storing number of applications by state
 	 		var g_json;
 	 		var maxValue; 
 	 		var minValue;
@@ -369,7 +459,7 @@
 			
 				
 	 				color.domain([d3.min(data, function(d) { return +d.value; }), 
-	 					d3.max(data, function(d) { return +d.value; })]);
+	 					          d3.max(data, function(d) { return +d.value; })]);
                
 	 				//Load in GeoJSON data
 	 				d3.json("us-states.json", function(json) {
@@ -414,30 +504,34 @@
 				  .sum(function(d) { return d.NUMBER; })
 				  .sort(function(a, b) { return a.NUMBER - b.NUMBER; });
 
-				console.log(nodes);
+			
 				 
-				 var update = svg.select("g#circles")
-				               .selectAll(".node")
-				.data(pack(nodes).descendants(),key);
-				               
-						 
-						     update
-				             .transition()
+				var update = svg.select("g#circles")
+				             .selectAll(".node")
+				             .data(pack(nodes).descendants(),key);
+
+				    
+				       update.transition()
 				             .duration(1500)
 				             .ease(d3.easeCubic)
-				             .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
+							 .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; })
 				             .select("circle")
 				             .attr("r",function(d){return d.r});
 							
-				         update.select("text")
-				            .text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP});
+				     
+					   update.select("text")
+							 .style("opacity", 0)
+                             .transition().duration(1500)
+                             .style("opacity", 1)
+				             .text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP});
       				  
-				   var  enter_g = update.enter()
+				var enter_g = update.enter()
 							   .append("g")
+							   
 				               .attr("class","node")
 							   .attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
 					           
-						enter_g.append("circle")
+				    enter_g.append("circle")
 							   .transition()
 				               .duration(1500)
 				               .ease(d3.easeCubic)
@@ -446,22 +540,24 @@
 					           .attr("opacity",0.25)
 					           .attr("stroke","#ADADAD")
 					           .attr("stroke-width","2")
-				      
 							   
-		   			    enter_g.append("text")
-		   					.style("text-anchor", "middle")
-		   					.text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP})
-		   					.attr("font-size","10")
-		   					.attr("pointer-events", "none");
-							
-					    update.exit()
-							  .transition()
-							  .remove();
+								   
+				    enter_g.append("text")
+								.style("opacity", 0)
+                                .transition().duration(1500)
+                                .style("opacity", 1)
+								.ease(d3.easeCubic)
+	                            .style("text-anchor", "middle")
+	   		   					.text(function(d){return d.children? "":d.data.COUNTRY_OF_CITIZENSHIP})
+	   		   					.attr("font-size","10")
+	   		   					.attr("pointer-events", "none");
+
+				   update.exit().remove();
 				           
 						  
-						 enter_g.merge(update)
-						       .selectAll("circle")  
-					           .on("click",function(d){
+				    enter_g.merge(update)
+						     .selectAll("circle")  
+					         .on("click",function(d){
 						          d3.selectAll("circle")
 						          .attr("fill","steelblue");
 						 
@@ -479,54 +575,99 @@
 								    var value = d.properties[country];
 								    state_num.push([d.properties.name,value]);	
 								
-						     });
+						            });
 						
-							// set the domain specific to the country of interest 
+							        // set the domain specific to the country of interest 
 							 
-							 var minValue = d3.min(state_num, function(d) { return d[1]; });
-							 var maxValue = d3.max(state_num, function(d) { return d[1]; });
-							 color.domain([minValue, maxValue]);
+							        var minValue = d3.min(state_num, function(d) { return d[1]; });
+							        var maxValue = d3.max(state_num, function(d) { return d[1]; });
+							        
+									color.domain([minValue, maxValue]);
 							
-  					        svg.selectAll("path")
-   					         .style("fill", function(d) {
-   					   		 //Get data value
-   					   		  var value = d.properties[country];	   		
-   						   	  return color(value);
-   					          });
+  					                svg.selectAll("path")
+   					                   .style("fill", function(d) {
+   					   		        //Get data value
+   					   		        var value = d.properties[country];	   		
+   						   	 
+							        return color(value);
+   					                });
 							
-							  // link to the description column
-							  svg.select("text#country")
-							  .text("Country: "+country);
+							         // link to the description column
+							        svg.select("text#country")
+									.style("opacity", 0)
+									.transition()
+									.duration(1000)
+									.style("opacity", 1)
+							        .text(country);
+							
 							  
-							  svg.select("text#number")
-							  .text("Total number of applications: "+number);
+							         svg.select("text#number")
+									  .style("opacity", 0)
+									  .transition()
+									  .duration(1000)
+									  .style("opacity", 1)
+							          .text(number);
 							  
-							  // sort the state_num array to find out the first three
-							  state_num.sort(function(a,b){return b[1]-a[1]});
-							  var first_name = state_num[0][0];
-							  var first_num = state_num[0][1];
-							  var second_name = state_num[1][0];
-							  var second_num = state_num[1][1];
-							  var third_name = state_num[2][0];
-							  var third_num = state_num[2][1]; 
+							         // sort the state_num array to find out the first three
+							         state_num.sort(function(a,b){return b[1]-a[1]});
+							         
+									 var first_name = state_num[0][0];
+							         var first_num = state_num[0][1];
+							         var second_name = state_num[1][0];
+							         var second_num = state_num[1][1];
+							         var third_name = state_num[2][0];
+							         var third_num = state_num[2][1]; 
 							  
-							  svg.select("text#firstState")
-							  .text("1. "+first_name+"        "+first_num);
+							         svg.select("text#firstState")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(first_name);
+									 
+							         svg.select("text#firstState1")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+										.text(first_num)
 							  
-							  svg.select("text#secondState")
-							  .text("2. "+second_name+"      "+second_num);
+							         svg.select("text#secondState")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(second_name);
+										
+							         svg.select("text#secondState1")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(second_num);
 							  
-							  svg.select("text#thirdState")
-							  .text("3. "+third_name+"        "+third_num);
+							         svg.select("text#thirdState")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(third_name);
+										
+							         svg.select("text#thirdState1")
+                                        .style("opacity", 0)
+									    .transition()
+									    .duration(1000)
+									    .style("opacity", 1)
+							            .text(third_num);
 							  
 							  
-							  // link to the legend 
-							  var interval = (maxValue - minValue)/6;
-							  for(var i=0;i<=6;i=i+1){
-							  	  var number = minValue+i*interval;
-								  legend.select("text#"+"llable"+i).text((number/1000).toFixed(2));
+							         // link to the legend 
+							         var interval = (maxValue - minValue)/6;
+							            for(var i=0;i<=6;i=i+1){
+							  	            var number = minValue+i*interval;
+								            legend.select("text#"+"llable"+i).text((number/1000).toFixed(2));
 								
-							  }
+							         }
 							  
 					         
 						 }
@@ -537,19 +678,19 @@
 							 .style("fill",color(0));
 							 
 						  svg.select("text#country")
-						  .text("Country: ");
+						  .text("");
 						  
 						  svg.select("text#number")
-						  .text("Total Number of Applications: ");
+						  .text("");
 						  
 						  svg.select("text#firstState")
-						  .text("1. ");
+						  .text("");
 						  
 						  svg.select("text#secondState")
-						  .text("2. ");
+						  .text("");
 						  
 						  svg.select("text#thirdState")
-						  .text("3. ");
+						  .text("");
 						 }
 					});
 
