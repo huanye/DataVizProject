@@ -3,11 +3,41 @@
 		<meta charset="utf-8">
 		<script type="text/javascript" src="./d3/d3.min.js"></script>
 		<style type="text/css">
-			/* No style rules here yet */		
+			#tooltip {
+							position: absolute;
+							width: 180px;
+							height: auto;
+							padding: 5px;
+							background-color: white;
+							-webkit-border-radius: 10px;
+							-moz-border-radius: 10px;
+							border-radius: 10px;
+							-webkit-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+							-moz-box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+							box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.4);
+							pointer-events: none;
+						}
+			
+						#tooltip.hidden {
+							display: none;
+						}
+			
+						#tooltip p {
+							margin: 0;
+							font-family: sans-serif;
+							font-size: 12px;
+							line-height: 20px;
+							color: grey;
+						}	
 		</style>
 	</head>
 	<body>
-		
+		<div id="tooltip" class="hidden">
+					<p><span id="year">100</span></p>
+					<p><span id="country">100</span></p>
+					<p><span id="state">100</span></p>
+					<p><span id="value">100</span></p>
+		</div>
 
 		
 		<script type="text/javascript">
@@ -71,6 +101,9 @@
  		  						   svg.selectAll("circle")
 								   .attr("fill","steelblue");
  	 							   
+								   svg.selectAll("text.llabel")
+								   .text("0");
+								   
 								   svg.select("text#year")
                                       .style("opacity", 0)
 									  .transition()
@@ -82,6 +115,9 @@
 									  .style("fill", function(d) {
    			 						   	return color(0);
    			 					   });
+								   
+								   svg.selectAll("path")
+								   .on("mouseover",null);
 								   
 								   // load data
 								   loadByYear(year_str);
@@ -394,8 +430,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable0")
+			 .attr("class","llabel")
+			 .attr("id","llabel0")
              .attr("x", -110)
              .attr("y", 40)
              .attr("font-size","10")
@@ -410,8 +446,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable1")
+			 .attr("class","llabel")
+			 .attr("id","llabel1")
              .attr("x", -70)
              .attr("y", 40)
              .attr("font-size","10")
@@ -425,8 +461,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable2")
+			 .attr("class","llabel")
+			 .attr("id","llabel2")
              .attr("x", -30)
              .attr("y", 40)
              .attr("font-size","10")
@@ -440,8 +476,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable3")
+			 .attr("class","llabel")
+			 .attr("id","llabel3")
              .attr("x", 10)
              .attr("y", 40)
              .attr("font-size","10")
@@ -455,8 +491,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable4")
+			 .attr("class","llabel")
+			 .attr("id","llabel4")
              .attr("x", 50)
              .attr("y", 40)
              .attr("font-size","10")
@@ -470,8 +506,8 @@
 			 .attr("y",0);
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable5")
+			 .attr("class","llabel")
+			 .attr("id","llabel5")
              .attr("x", 90)
              .attr("y", 40)
              .attr("font-size","10")
@@ -480,8 +516,8 @@
 	        
 			 
 			 legend.append("text")
-			 .attr("class","llable")
-			 .attr("id","llable6")
+			 .attr("class","llabel")
+			 .attr("id","llabel6")
              .attr("x", 130)
              .attr("y", 40)
              .attr("font-size","10")
@@ -496,17 +532,33 @@
              .text("number of applications (thousand)");
 		
 		     function setDefaultLegend(){
-			   legend.selectAll('text.llable')
+			   legend.selectAll('text.llabel')
 			         .text("0")
 		     }
 		 
 			 // add the instruction
 			 svg.append("text")
-             .attr("x", w/2-30)
-             .attr("y", h-80)
+             .attr("x", w/2+20)
+             .attr("y", h-100)
              .attr("font-size","20")
 			 .attr("fill",'steelblue')
-             .text("CLICK inside the country circle to learn more");
+             .text("A. CLICK the year button");
+			 
+			 svg.append("text")
+             .attr("x", w/2+20)
+             .attr("y", h-70)
+             .attr("font-size","20")
+			 .attr("fill",'steelblue')
+             .text("B. CLICK the country circle above");
+			 
+			 svg.append("text")
+             .attr("x", w/2+20)
+             .attr("y", h-40)
+             .attr("font-size","20")
+			 .attr("fill",'steelblue')
+             .text("C. MOUSEOVER the state on the map ");
+			 
+			 
 			 
 			 //default year, description and legend
 			 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
@@ -660,6 +712,41 @@
    						   	 
 							        return color(value);
    					                });
+									
+									svg.selectAll("path")
+									   .on("mouseover",function(d){
+									  // console.log(d3.select(this))
+									var x = d3.mouse(this)[0];
+								    var y = d3.mouse(this)[1];
+									var tooltip=
+									   d3.select("#tooltip")
+									  .style("left",x+"px")
+                                      .style("top",y+"px")
+									tooltip.select("#year")
+									   .text("year:  20"+year)
+									tooltip.select("#country")
+									   .text("country of origin: "+country)
+									tooltip.select("#state")
+									   .text("state of worksite: "+d.properties.name)
+									tooltip.select("#value")
+									  .text("number of applications:  "+d.properties[country])
+									d3.select("#tooltip").classed("hidden",false);
+									  // svg.append("text")
+									  //	  .attr("id","tooltip")
+									  //	  .attr("x",x)
+									  //	  .attr("y",y)
+									  //	  .text(d.properties[country])
+									  // 	  .attr("pointer-events", "none");	
+									   })
+									   .on("mouseout",function(){
+										  // d3.select("#tooltip").remove();
+										  d3.select("#tooltip").classed("hidden",true);
+									   })
+									  
+										
+									      
+									   
+									 
 							
 							         // link to the description column
 							        svg.select("text#country")
@@ -766,7 +853,7 @@
 							         var interval = (maxValue - minValue)/6;
 							            for(var i=0;i<=6;i=i+1){
 							  	            var number = minValue+i*interval;
-								            legend.select("text#"+"llable"+i).text((number/1000).toFixed(2));
+								            legend.select("text#"+"llabel"+i).text((number/1000).toFixed(2));
 								
 							         }
 							  
@@ -774,9 +861,16 @@
 						 }
 						 
 						 else{
+						 //disable mouseover event	 
+						 svg.selectAll("path")
+						   .on("mouseover",null);
+							 // clear map
    					      svg.selectAll("path")
    					         .data(g_json.features)
 							 .style("fill",color(0));
+							 // clear legend labels
+						  svg.selectAll("text.llabel")
+						  .text("0");
 							 
 						  svg.select("text#country")
 						  .text("");
