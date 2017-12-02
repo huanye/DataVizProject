@@ -30,8 +30,7 @@
 							line-height: 20px;
 							color: grey;
 			}	
-						
-			
+		select { position: absolute; right: 180px; top: 1424px; }				
 		</style>
 	  
 	  </head>
@@ -42,8 +41,30 @@
 					<p><span id="state">100</span></p>
 					<p><span id="value">100</span></p>
 		</div>
-		
+		<select id="cityselector">
+			<option value="0">Agriculture, Forestry, Fishing and Hunting</option>
+			<option value="1">Mining</option>
+			<option value="2">Utilities</option>
+			<option value="3">Construction</option>
+			<option value="4">Manufacturing</option>
+			<option value="5">Wholesale Trade"</option>
+			<option value="6">Retail Trade</option>
+			<option value="7">Transportation and Warehousing</option>
+			<option value="8">Information</option>
+			<option value="9">Finance and Insurance</option>
+			<option value="10">Real Estate Rental and Leasing</option>
+			<option value="11">Professional, Scientific, and Technical Services</option>
+			<option value="12">Management of Companies and Enterprises</option>
+			<option value="13">Administrative and Support and Waste Management</option>
+			<option value="14">Educational Services</option>
+			<option value="15">Health Care and Social Assistance</option>
+			<option value="16">Arts, Entertainment, and Recreation</option>
+			<option value="17">Accommodation and Food Services</option>
+			<option value="18">Other Services (except Public Administration)</option>
+			<option value="19">Public Administration</option>
+		</select>
 
+		
 		<script type="text/javascript">
 
 			//Width and height
@@ -544,8 +565,6 @@
 		     }
 		 
 			 
-			 
-			 
 			 //default year, description and legend
 			 updateButtonColors(d3.select(defaultButton), d3.select(defaultButton.parentNode));
 			 loadByYear(defaultYear);
@@ -892,10 +911,6 @@
 						 
 					});
 
-		
-				    
-					
-					
 
 			});
 
@@ -928,8 +943,8 @@
 		
 		
         var projection2 = d3.geoAlbersUsa()
-					      .translate([w/1.9, 0.23*h])
-					      .scale([800]);
+					      .translate([w/2.5, 0.23*h])
+					      .scale([1100]);
 		
 		var path1 = d3.geoPath()
 						 .projection(projection2)
@@ -946,16 +961,38 @@
 	   var key1 = function(d) {
 		return d.city;
 	   };
-	   
 
-
-		
-		
 		 
 		var defaultButton1;
 		var defaultButton2;
-        var year_str="2016";
+	
+        var year_str="2015";
 		var dependent_str = "independent"; 
+		var ind_code = "index21"
+
+		var industry_data= [["index11","Agriculture, Forestry, Fishing and Hunting"],
+                      ["index21","Mining"],
+                      ["index22","Utilities"],
+                      ["index23","Construction"],
+                      ["index31","Manufacturing"],
+                      ["index42","Wholesale Trade"],
+                      ["index44","Retail Trade"],
+                      ["index48","Transportation and Warehousing"],
+                      ["index51","Information"],
+                      ["index52","Finance and Insurance"],
+                      ["index53","Real Estate Rental and Leasing"],
+                      ["index54","Professional, Scientific, and Technical Services"],
+                      ["index55","Management of Companies and Enterprises"],
+                      ["index56","Administrative and Support and Waste Management"],
+                      ["index61","Educational Services"],
+                      ["index62","Health Care and Social Assistance"],
+                      ["index71","Arts, Entertainment, and Recreation"],
+                      ["index72","Accommodation and Food Services"],
+                      ["index81","Other Services (except Public Administration)"],
+                      ["index92","Public Administration"]
+                      ]
+
+		var index = 0;
 		
 		//container for all buttons
 		var allButtons1 = second.append("g")
@@ -963,10 +1000,26 @@
         
 		var allButtons2 = second.append("g")
 								.attr("transform","translate(950,20)")
-	    // button labels
+
+		
+
+	    // button labels for year
 		var labels1= ['2015','2016','2017'];
+		// button labels for employer type
 		var labels2= ['H-1B Independent Employers','H-1B Dependent Employers'];
+        // button labels for industry
         
+
+        d3.select("#cityselector").property("selectedIndex", index);
+        
+        d3.select("#cityselector")
+		.on("change", function(d) {
+			index = this.value;
+			ind_code = industry_data[index][0];
+		    load_data(year_str,dependent_str,ind_code);
+		});
+
+
 		//groups for each button (which will hold a rect and text)
 		var buttonGroups1= allButtons1.selectAll("g.button1")
 					       .data(labels1)
@@ -975,14 +1028,14 @@
 					       .attr("class","button1")
 					       .style("cursor","pointer")
 		                   .each(function(d,i){
-		                   	   if(i==2)
+		                   	   if(i==0)
 							   defaultButton1 = this;
 		                   })
 		                   .on("click",function(d) {
 							   year_str = d;
 							   
 							   updateButtonColors(d3.select(this), d3.select(this.parentNode));
-							   load_data(year_str,dependent_str);
+							   load_data(year_str,dependent_str,ind_code);
 							   // clear pack bubble, map and update year
 		                    });	
  		
@@ -1000,9 +1053,11 @@
  							   dependent_str = d.split(" ")[1];
 							  
  							   updateButtonColors(d3.select(this), d3.select(this.parentNode));
-							   load_data(year_str,dependent_str);
+							   load_data(year_str,dependent_str,ind_code);
  							   // clear pack bubble, map and update year
- 		                    });					
+ 		                    });	
+ 	 
+ 		
 		
 							   
 		buttonGroups1.append("rect")
@@ -1024,7 +1079,8 @@
 					 })
 					 .attr("x",x0)
 					 .attr("fill","lightblue")
-		
+
+
 	    buttonGroups1.append("text")
 					 .attr("class","buttonText1")
 					 .attr("font-family","FontAwesome")
@@ -1045,6 +1101,8 @@
  					 })
  					 .attr("x",x0+2*bHeight)
  					 .text(function(d) {return d;}) 
+
+ 		
 	
 				 
 		updateButtonColors(d3.select(defaultButton1), d3.select(defaultButton1.parentNode));  
@@ -1054,7 +1112,7 @@
 		      .attr("x",950)
 		      .attr("y",100)
 		
-		var load_data = function(year,dependent){
+		var load_data = function(year,dependent,code){
 			
 			d3.csv("h1b_"+year+"_"+dependent+".csv", function(data) {
 			
@@ -1070,14 +1128,18 @@
 							   .style("stroke","white");
 			
 	          
-				
+				         
 					     var update = second.selectAll("circle")
 							   			   .data(data,key1)
-				   
-				          update.transition()
+				           
+				           update.transition()
 				             .duration(1500)
 				             .ease(d3.easeCubic)
-				             .attr("r",function(d){return Math.sqrt(parseInt(d.median_wage) * 0.006)})
+				             .attr("r",function(d){
+				             	//console.log(d)
+				             	return Math.sqrt(parseInt(d[code]) * 0.01)
+				             })
+							 .style("opacity", 0.2)
 			   			 	 
 				
 	        
@@ -1091,21 +1153,28 @@
 								   			 return projection2([d.lon, d.lat])[1];
 							   		  		})
 							   			 	.attr("r", function(d) {
-												return Math.sqrt(parseInt(d.median_wage) * 0.006);
+												return Math.sqrt(parseInt(d[code]) * 0.01);
 							   			 	})
 							   			 	.style("fill", "steelblue")
 							   			 	.style("stroke", "gray")
 							   			 	.style("stroke-width", 0.25)
-							   			 	.style("opacity", 0.6)
+							   			 	.style("opacity", 0.4)
 											
 							      update.exit().remove();
 									 
 									
 								  second.selectAll("circle")
-	 									.on("click",function(d){
+	   						             .append("title")			//Simple tooltip
+	   						             .text(function(d) {
+	   								         return d.city;
+										 });
+	 									 
+							      second.selectAll("circle")
+										 
+										 .on("click",function(d){
 											   
 	 									second.select("text#city_wage")
-											  .text("median wage: "+d.median_wage)
+											  .text("median wage: "+d[code])
 	 									});
 										
 	 									
@@ -1119,7 +1188,7 @@
 		 
 		}
 		
-		load_data(year_str,dependent_str);
+		load_data(year_str,dependent_str,ind_code);
         
 
 		</script>
