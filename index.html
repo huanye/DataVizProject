@@ -47,7 +47,7 @@
 			<option value="2">Utilities</option>
 			<option value="3">Construction</option>
 			<option value="4">Manufacturing</option>
-			<option value="5">Wholesale Trade"</option>
+			<option value="5">Wholesale Trade</option>
 			<option value="6">Retail Trade</option>
 			<option value="7">Transportation and Warehousing</option>
 			<option value="8">Information</option>
@@ -1236,7 +1236,7 @@
 				             	//console.log(d)
 				             	return Math.sqrt(parseInt(d[code]) * 0.01)
 				             })
-							 .style("opacity", 0.2)
+							 .style("opacity", 0.5)
 			   			 	 
 				
 	        
@@ -1255,7 +1255,7 @@
 							   			 	.style("fill", "steelblue")
 							   			 	.style("stroke", "gray")
 							   			 	.style("stroke-width", 0.25)
-							   			 	.style("opacity", 0.4)
+							   			 	.style("opacity", 0.5)
 											
 							      update.exit().remove();
 									 
@@ -1268,9 +1268,14 @@
                                   
 								d3.csv("h1b_"+year+"_"+dependent+"_top5.csv", function(data_t){
 	 								
-
+										var max_wage = d3.max(data_t,function(d) { return +d.median_wage; });
+										var min_wage = d3.min(data_t,function(d) { return +d.median_wage; });
+	 									
+	 									console.log(year);
+										console.log(max_wage);
+										console.log(min_wage);
 	 									 
-							             second.selectAll("circle")
+							            second.selectAll("circle")
 										 
 										    .on("click",function(d){
 
@@ -1280,11 +1285,13 @@
                                                 
                                                 var employers = [];
                                                 var wages = [];
+                                                var ranks = [];
 										       for (var i = 0; i < data_t.length; i++) {	
 											        if(data_t[i].city==city 
 											          	&& data_t[i].industry==industry){
 	 								                employers.push(data_t[i].employer_name);
-        											wages.push(data_t[i].median_wage);  
+        											wages.push(data_t[i].median_wage);
+        											ranks.push(i+1);  
 	 								     	        if(data_t[i].industry!=industry)
 	 								     	        	 break;
                                                     }
