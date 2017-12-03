@@ -1126,41 +1126,41 @@
 		var infor = second.append("g")
                              .attr("transform","translate(900,120)")
         
-        infor.append("text")
-		      .attr("id","year")
-		      .attr("x",0)
-		      .attr("y",0)
-		      .attr("fill",'rgb(96,96,96)')
+        // infor.append("text")
+		      // .attr("id","year")
+		      // .attr("x",0)
+		      // .attr("y",0)
+		      // .attr("fill",'rgb(96,96,96)')
    
 		infor.append("text")
 		      .attr("id","city")
 		      .attr("x",0)
-		      .attr("y",20)
+		      .attr("y",60)
 		      .attr("fill",'rgb(96,96,96)')
 
 
 
-		infor.append("text")
-		      .attr("id","type")
-		      .attr("x",0)
-		      .attr("y",40)
-		      .attr("fill",'rgb(96,96,96)')
+		// infor.append("text")
+		//       .attr("id","type")
+		//       .attr("x",0)
+		//       .attr("y",40)
+		//       .attr("fill",'rgb(96,96,96)')
 
 		infor.append("text")
 		      .attr("id","wage")
 		      .attr("x",0)
-		      .attr("y",60)
+		      .attr("y",85)
 		      .attr("fill",'rgb(96,96,96)')
 
 
         infor.append("text")
 		      .attr("id","rank")
 		      .attr("x",0)
-		      .attr("y",110)
+		      .attr("y",130)
 		      .attr("fill",'rgb(96,96,96)')
        
 		 var barplot = second.append("g")
-                             .attr("transform","translate(900,270)")      
+                             .attr("transform","translate(900,280)")      
 
 		
 
@@ -1268,11 +1268,11 @@
 	 								     	    	wage_data.push([wages[i],employers[i]]);
 	 								     	    }
 
-	 								     	    infor.select("text#year")
-											          .text("Year:  "+year);
+	 								     // 	    infor.select("text#year")
+											    //       .text("Year:  "+year);
 
-											    infor.select("text#type")
-											          .text("Employer type:  H-1B "+dependent);
+											    // infor.select("text#type")
+											    //       .text("Employer type:  H-1B "+dependent);
 
 										        infor.select("text#wage")
 											          .text("Industry median wage ($): "+wage);
