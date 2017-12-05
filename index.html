@@ -959,8 +959,7 @@
 						//.range(["rgb(237,248,233)","rgb(186,228,179)","rgb(116,196,118)","rgb(49,163,84)","rgb(0,109,44)"]);
 						//Colors taken from colorbrewer.js, included in the D3 download
 
-	   //Number formatting for population values
-	   var formatAsThousands = d3.format(",");  //e.g. converts 123456 to "123,456"
+	  
 	   
 	   // key function
 	   var key1 = function(d) {
@@ -972,7 +971,7 @@
 		var defaultButton2;
 	
         var year_str="2015";
-		var dependent_str = "independent"; 
+		var dependent_str = "Independent"; 
 		var ind_code = "index21"
 
 		var industry_data= [["index11","Agriculture, Forestry, Fishing and Hunting"],
@@ -1124,7 +1123,7 @@
 		
 		
 		var infor = second.append("g")
-                             .attr("transform","translate(900,120)")
+                             .attr("transform","translate(900,80)")
         
         // infor.append("text")
 		      // .attr("id","year")
@@ -1135,7 +1134,7 @@
 		infor.append("text")
 		      .attr("id","city")
 		      .attr("x",0)
-		      .attr("y",60)
+		      .attr("y",20)
 		      .attr("fill",'rgb(96,96,96)')
 
 
@@ -1149,18 +1148,18 @@
 		infor.append("text")
 		      .attr("id","wage")
 		      .attr("x",0)
-		      .attr("y",85)
+		      .attr("y",45)
 		      .attr("fill",'rgb(96,96,96)')
 
 
         infor.append("text")
 		      .attr("id","rank")
 		      .attr("x",0)
-		      .attr("y",130)
+		      .attr("y",85)
 		      .attr("fill",'rgb(96,96,96)')
        
 		 var barplot = second.append("g")
-                             .attr("transform","translate(900,280)")      
+                             .attr("transform","translate(900,200)")      
 
 		
 
@@ -1169,15 +1168,11 @@
 		
 		var load_data = function(year,dependent,code){
 			
-			d3.csv("h1b_"+year+"_"+dependent+".csv", function(data) {
+			d3.csv("h1b_"+year+"_"+dependent.toLowerCase()+".csv", function(data) {
 				         
-				        // sort data by target industry median wage
-				        data.sort(function(a, b) {return b[code]-a[code]});
 
-			
 						d3.json("us-states.json", function(json) {
 
-			
 					     second.selectAll("path")
 							   .data(json.features)
 							   .enter()
@@ -1186,54 +1181,91 @@
 							   .attr("fill", "#ccc")
 							   .style("stroke","white");
 			
-	          
+	                     
+
+	                     
 			        	         
-					     var update = second.selectAll("circle")
-							   			   .data(data,key1)
+					     // var update = second.selectAll("circle")
+							   // 			    .data(data,key1)
+
+
+							 
 				           
-				            update.transition()
-				             .duration(1500)
-				             .ease(d3.easeCubic)
-				             .attr("r",function(d){
-				             	//console.log(d)
-				             	return Math.sqrt(parseInt(d[code]) * 0.01)
-				             })
-							 .style("opacity", 0.5)
+				      //        update.transition()
+				      //              .duration(1500)
+				      //              .ease(d3.easeCubic)
+				      //              .attr("r",function(d){
+				      //        	//console.log(d)
+				      //        	return Math.sqrt(parseInt(d[code]) * 0.01)
+				      //              })
+							 	 //   .style("opacity", 0.5)
 			   			 	 
 				
 	        
 			 
-				       	  var enter_g = update.enter()
-							                 .append("circle")
+				      //  	  var enter_g = update.enter()
+							   //              .append("circle")
 							                 
-							                 .attr("cx", function(d) {
+							   //              .attr("cx", function(d) {
+								  //  			 return projection2([d.lon, d.lat])[0];
+							   // 		  		 })
+							   // 			  	.attr("cy", function(d) {
+								  //  			 return projection2([d.lon, d.lat])[1];
+							   // 		  		})
+							   // 		  		.transition()
+				      //          				.duration(1500)
+				      //          				.ease(d3.easeCubic)
+							   // 			 	.attr("r", function(d) {
+										// 		return Math.sqrt(parseInt(d[code]) * 0.01);
+							   // 			 	})
+							   // 			 	.style("fill", "steelblue")
+							   // 			 	.style("stroke", "gray")
+							   // 			 	.style("stroke-width", 0.25)
+							   // 			 	.style("opacity", 0.5)
+								  		
+							   //    update.exit().remove();
+									 
+									
+							      
+                                  
+                                  second.selectAll("circle")
+                                        .remove();
+
+                                  data.sort(function(a, b) {return b[code]-a[code]});
+                                  
+                                  second.selectAll("circle")
+                                        .data(data,key1)
+                                        .enter()
+ 										.append("circle")
+ 										.attr("cx", function(d) {
 								   			 return projection2([d.lon, d.lat])[0];
 							   		  		 })
-							   			  	.attr("cy", function(d) {
+							   			.attr("cy", function(d) {
 								   			 return projection2([d.lon, d.lat])[1];
-							   		  		})
-							   		  		 .transition()
-				               				 .duration(1500)
-				               				 .ease(d3.easeCubic)
-							   			 	.attr("r", function(d) {
+							   		    })
+							   		    .transition()
+				               			.duration(1500)
+				               			.ease(d3.easeCubic)
+							   		  	.attr("r", function(d) {
 												return Math.sqrt(parseInt(d[code]) * 0.01);
-							   			 	})
-							   			 	.style("fill", "steelblue")
+							   			})
+							   			.style("fill", "steelblue")
 							   			 	.style("stroke", "gray")
 							   			 	.style("stroke-width", 0.25)
 							   			 	.style("opacity", 0.5)
 								  		
-							      update.exit().remove();
-									 
-									
+                                              
+                                        
+
 								  second.selectAll("circle")
 	   						             .append("title")			//Simple tooltip
 	   						             .text(function(d) {
 	   								         return d.city;
 										 });
                                   
-								d3.csv("h1b_"+year+"_"+dependent+"_top5.csv", function(data_t){
+								d3.csv("h1b_"+year+"_"+dependent.toLowerCase()+"_top5.csv", function(data_t){
 	 								    // choose the industry maximum and minimum median wages for barplots
+
 	 								    var max_wage = d3.max(data_t,function(d) { if(d.industry==code){return +d.median_wage;} });
 					                    var min_wage = d3.min(data_t,function(d) { if(d.industry==code){return +d.median_wage;} });
 	 									
@@ -1268,12 +1300,6 @@
 	 								     	    	wage_data.push([wages[i],employers[i]]);
 	 								     	    }
 
-	 								     // 	    infor.select("text#year")
-											    //       .text("Year:  "+year);
-
-											    // infor.select("text#type")
-											    //       .text("Employer type:  H-1B "+dependent);
-
 										        infor.select("text#wage")
 											          .text("Industry median wage ($): "+wage);
 
@@ -1286,11 +1312,11 @@
 
 
 
-											// draw barplot
+											// draw barplots
 
 											
                                           
-											console.log(wage_data.length);
+											
 
 
 
@@ -1362,9 +1388,9 @@
 										    
 											var enter=update2.enter()
 
-												      .append("text")
-												      .attr("class","employer")
-			                                        .merge(update2)
+												  .append("text")
+												  .attr("class","employer")
+			                                      .merge(update2)
 												  .attr("y",function(d,i){ return i*60-10; })
 												  .attr("x",0)
 				             					  .attr("font-size","12")
