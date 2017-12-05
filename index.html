@@ -688,7 +688,7 @@
 						 
 						           if(!d.children){
 						           d3.select(this)
-						           .attr("fill","rgb(102,51,0)");
+						             .attr("fill","rgb(102,51,0)");
 					     
 						           // link the map
 						           var country = d.data.COUNTRY_OF_CITIZENSHIP;
@@ -996,7 +996,7 @@
                       ["index92","Public Administration"]
                       ]
 
-		var index = 0;
+		var index = 1;
 		
 		//container for all buttons
 		var allButtons1 = second.append("g")
@@ -1185,45 +1185,7 @@
 
 	                     
 			        	         
-					     // var update = second.selectAll("circle")
-							   // 			    .data(data,key1)
-
-
-							 
-				           
-				      //        update.transition()
-				      //              .duration(1500)
-				      //              .ease(d3.easeCubic)
-				      //              .attr("r",function(d){
-				      //        	//console.log(d)
-				      //        	return Math.sqrt(parseInt(d[code]) * 0.01)
-				      //              })
-							 	 //   .style("opacity", 0.5)
-			   			 	 
-				
-	        
-			 
-				      //  	  var enter_g = update.enter()
-							   //              .append("circle")
-							                 
-							   //              .attr("cx", function(d) {
-								  //  			 return projection2([d.lon, d.lat])[0];
-							   // 		  		 })
-							   // 			  	.attr("cy", function(d) {
-								  //  			 return projection2([d.lon, d.lat])[1];
-							   // 		  		})
-							   // 		  		.transition()
-				      //          				.duration(1500)
-				      //          				.ease(d3.easeCubic)
-							   // 			 	.attr("r", function(d) {
-										// 		return Math.sqrt(parseInt(d[code]) * 0.01);
-							   // 			 	})
-							   // 			 	.style("fill", "steelblue")
-							   // 			 	.style("stroke", "gray")
-							   // 			 	.style("stroke-width", 0.25)
-							   // 			 	.style("opacity", 0.5)
-								  		
-							   //    update.exit().remove();
+					    
 									 
 									
 							      
@@ -1273,6 +1235,17 @@
 							            second.selectAll("circle")
 										 
 										    .on("click",function(d){
+										    	second.selectAll("circle")
+										    	     .style("fill","steelblue")
+										    	     .style("opacity",0.5);
+										    	     
+										    	
+								
+
+										    	 d3.select(this)
+						            			   .style("fill","black")
+						            			   .style("opacity",0.6)
+						            			
 
 										    	var city = d.city;
 										    	var wage = +d[code];
