@@ -1125,14 +1125,14 @@
  					 .text(function(d) {return d;}) 
 
  		// median wage circle legend
-		var legend = second.append("g")
+		var legend_wage = second.append("g")
 		                   .attr("transform","translate(80,600)");
 		  
 
 
 		var legend_array = [20000,40000,90000,160000];
 
-		    legend.selectAll("circle.legend")
+		    legend_wage.selectAll("circle.legend")
                   .data(legend_array)
                   .enter()
                   .append("circle")
@@ -1150,14 +1150,14 @@
                   .style("fill","steelblue")
 				  .style("opacity",0.6);
 
-		    legend.append("text")
+		    legend_wage.append("text")
 		          .attr("id","wltitle")
 		          .text("median wage ($)")
 		          .attr("x",45)
 		          .attr("y",5)
 		          .attr("fill",'rgb(96,96,96)') 
 
-		    legend.selectAll("text.legend")
+		    legend_wage.selectAll("text.legend")
 		          .data(legend_array)
 		          .enter()
 		          .append("text")
