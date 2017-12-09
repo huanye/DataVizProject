@@ -69,7 +69,7 @@
 		<script type="text/javascript">
 
 			//Width and height
-			var w = 1200;
+			var w = 1276;
 			var h = 1500;
 	
 			//Create SVG element
@@ -308,7 +308,7 @@
 		    first.append("text") 
             .attr("x", 20)
             .attr("y",20)
-            .attr("font-size","16")
+            .attr("font-size",18)
 		    .attr("font-weight","bold")
 			.attr("fill",'rgb(96,96,96)')
             .text("Worksite Distribution of US Permnant Visa Applications (2011-2017)")
@@ -317,7 +317,7 @@
 		    first.append("text") 
             .attr("x", 20)
             .attr("y", 40)
-            .attr("font-size","12")
+            .attr("font-size",15)
 			.attr("fill",'rgb(96,96,96)')
             .text("as shown by the top 10 countries with high US Permanent Visa applications each year")
 			
@@ -1039,7 +1039,7 @@
 		second.append("text") 
             .attr("x",30)
             .attr("y",0)
-            .attr("font-size","16")
+            .attr("font-size",18)
 		    .attr("font-weight","bold")
 			.attr("fill",'rgb(96,96,96)')
 		.text("Wage Rates Proposed by H-1B Employers from All Industries (2015-2017)");
@@ -1048,7 +1048,7 @@
 		second.append("text") 
             .attr("x", 30)
             .attr("y", 20)
-            .attr("font-size","14")
+            .attr("font-size",15)
 			.attr("fill",'rgb(96,96,96)')
 		.text("as shown by median wages offered by H-1B independent and dependent employers in the largest 50 cities");
 		
@@ -1057,7 +1057,7 @@
 		
 		
         var projection2 = d3.geoAlbersUsa()
-					      .translate([0.35*w, 0.212*h])
+					      .translate([0.32*w, 0.212*h])
 					      .scale([1050]);
 		
 		var path1 = d3.geoPath()
