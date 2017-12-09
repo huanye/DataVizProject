@@ -156,7 +156,10 @@
 									  .transition()
 									  .duration(1000)
 									  .style("opacity", 1)
- 	 							      .text(d);
+ 	 							      .text(function(){
+ 	 							      	  if(i<7)
+ 	 							      	  return d;
+ 	 							      });
 									  
    			 					   first.selectAll("path")
 									  .style("fill", function(d) {
@@ -183,12 +186,8 @@
 			                   	             d3.select(this)
                                                .attr("pointer-events", "none");
 
-			                   	               })
-                                            
-			                                 
-			                                
-			                   	   		 
-			                   	   		
+			                   	          })
+                                        
 
                                          var years = ['11','12','13','14','15','16','17'];
                                         
