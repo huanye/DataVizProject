@@ -31,7 +31,7 @@
 							color: grey;
 			}
 				
-		select { position: absolute; left: 850px; top: 1424px; }				
+		select { position: absolute; left: 850px; top: 1442px; }				
 		</style>
 	  
 	    </head>
@@ -224,7 +224,6 @@
                                                				          .attr("pointer-events", "auto");
 
 			                   	              					 })
-
 			                   	                         
                                                 	}
 
@@ -232,23 +231,14 @@
 
                                          }
 
-                                         iter(0);
-
-
-                                        
-                                         
-                                        
-
+                                         iter(0);    
 
 			                   	   }
 			                   	   else{
 
 			                   	   	
 								   var year_str = d.substring(2);
-								   
-								   
-								   
-								   
+
 								   // load data
 								   loadByYear(year_str);
 								  }
@@ -1067,9 +1057,8 @@
 		
 		
         var projection2 = d3.geoAlbersUsa()
-					      .translate([0.35*w, 0.2*h])
-
-					      .scale([1100]);
+					      .translate([0.35*w, 0.212*h])
+					      .scale([1050]);
 		
 		var path1 = d3.geoPath()
 						 .projection(projection2)
@@ -1230,11 +1219,11 @@
 
  		// median wage circle legend
 		var legend_wage = second.append("g")
-		                   .attr("transform","translate(70,600)");
+		                   .attr("transform","translate(10,620)");
 		  
 
 
-		var legend_array = [20000,40000,90000,160000];
+		var legend_array = [20000,40000,90000,160000,200000];
 
 		    legend_wage.selectAll("circle.legend")
                   .data(legend_array)
@@ -1245,10 +1234,14 @@
 					    return Math.sqrt(d* 0.006);
 				  })
                   .attr("cx",function(d,i){
-                  	    if(i==0){
+                  	     if(i==0)
                   	      	return 220;
-                  	     }
-                  		return i*60+180+i*60; 
+                  	     else if(i==1)
+                  		    return i*60+185+i*60; 
+                         else if (i==2||i==3 )
+                          	return i*60+170+i*60; 
+                  	     else
+                  	     	return i*60+180+i*60;
                   })
                   .attr("cy",0)
                   .style("fill","steelblue")
@@ -1271,6 +1264,8 @@
 		          	     if(i==0){
                   	      	return 240;
                   	     }
+                  	     if(i==2 || i==3)
+                  		    return i*115+180+i*15; 
 		          	     return i*115+200+i*12;
 		          })
 		          .attr("y",5)
