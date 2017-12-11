@@ -1,9 +1,15 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
+
 		<script type="text/javascript" src="./d3/d3.min.js"></script>
 		
 		<style type="text/css">
+            /*
+            the following tooltip css specifications are referenced from 
+            file 14_div_tooltip.html in Chapter 10, Interactive Data 
+            Visualization for the Web 2nd Edition   
+            */
 			#tooltip {
 							position: absolute;
 							width: auto;
@@ -32,6 +38,7 @@
 			}
 				
 		select { position: absolute; left: 850px; top: 1442px; }				
+		
 		</style>
 	  
 	    </head>
@@ -68,11 +75,12 @@
 		
 		<script type="text/javascript">
 
+
 			//Width and height
 			var w = 1370;
 			var h = 1500;
 	
-			//Create SVG element
+			//create SVG element
 			var svg = d3.select("body")
 						.append("svg")
 						.attr("width", w)
@@ -85,18 +93,20 @@
 			var second = svg.append("g")
 						    .attr("transform","translate(0,"+11*h/20+")")			
 						
-			
+			// part of the following fragments on  US map projection 
+			// are based on file 05_choropleth.html in Chapter 14, 
+			// Interactive Data Visualization for the Web 2nd Edition   
 						
-			//Define map projection			
+			//define map projection			
 			var projection = d3.geoAlbersUsa()
 					   .translate([180, 6*h/20])
 					   .scale([450]);
 
-		    //Define path generator
+		    //define path generator
             var path = d3.geoPath()
 			             .projection(projection);
 				 
-            //Define quantize scale to sort data values into buckets of color
+            //define quantize scale to sort data values into buckets of color
             var color = d3.scaleQuantize()
 			              .range(["rgb(224, 224, 224)","rgb(192,192,192)","rgb(160, 160, 160)","rgb(128, 128, 128)","rgb(96, 96, 96)","rgb(64, 64, 64)"]);
 					
@@ -113,7 +123,10 @@
 
 			
 		   //default year
-		    var defaultYear = "16";	  
+		    var defaultYear = "16";	 
+
+		    // part of the following code fragments about radio buttons are adapted from 
+		    // codes in the blog http://www.nikhil-nathwani.com/blog/posts/radio/radio.html 
 						
 			var defaultButton;
  
@@ -665,7 +678,9 @@
 		     setDefaultColumn();
 		     setDefaultLegend();
 			 
-			 
+			// part of the following code fragments on US map drawing are adapted from 
+			// file 05_choropleth.html in Chapter 10, Interactive Data Visualization for 
+			// the Web 2nd Edition
 			 
 			// load data for a specific year
 			function loadByYear(year){
@@ -1024,13 +1039,7 @@
 	   			.text(function(d) {
 	   		  return "Click inside the country circle to learn more.";
 			});
-             
-             
-           
-           
-               
-	   			
-
+     
 		
 		// second graph
 		
@@ -1051,7 +1060,10 @@
             .attr("font-size",16)
 			.attr("fill",'rgb(96,96,96)')
 		.text("as shown by median wages offered by H-1B independent and dependent employers in the largest 50 cities");
-	
+	    
+	    // part of the following code fragments on US map drawing with cities are 
+	    // adapted from file 07_points_sized.html in Chapter 14, Interactive Data 
+	    // Visualization for the Web 2nd Edition
 		
         var projection2 = d3.geoAlbersUsa()
 					      .translate([0.3*w, 0.212*h])
@@ -1094,8 +1106,12 @@
                       ["index81","Other Services (except Public Administration)"],
                       ["index92","Public Administration"]
                       ]
-
+        
+        // droplist default index
 		var index = 1;
+
+		// part of the following code fragments about radio buttons are adapted from 
+		// codes in the blog http://www.nikhil-nathwani.com/blog/posts/radio/radio.html 
 		
 		//container for all buttons
 		var allButtons1 = second.append("g")
@@ -1304,7 +1320,9 @@
 		var barplot = second.append("g")
                             .attr("transform","translate(850,200)");     
 
-		
+		// part of the following code fragments on US map drawing with cities are 
+	    // adapted from file 07_points_sized.html in Chapter 14, Interactive Data 
+	    // Visualization for the Web 2nd Edition
 		
                  
 		var load_data = function(year,dependent,code){
