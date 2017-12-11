@@ -77,7 +77,7 @@
 		<script type="text/javascript">
 
 
-			//Width and height
+			//width and height
 			var w = 1370;
 			var h = 1500;
 	
@@ -391,7 +391,6 @@
 			 .text("Top 5 worksite states by number of applications");
 			
 			first.append("text")
-			 //.attr("id","firstState")
 			 .attr("x", 20)
 			 .attr("y", 220)
 			 .attr("font-size",16)
@@ -415,7 +414,6 @@
 			 .text("");
 			 
 			first.append("text")
-			 //.attr("id","secondState")
 			 .attr("x", 20)
 			 .attr("y", 240)
 			 .attr("font-size",16)
@@ -439,7 +437,6 @@
 			 .text("");
 			 
 			first.append("text")
-			 //.attr("id","thirdState")
 			 .attr("x", 20)
 			 .attr("y", 260)
 			 .attr("font-size",16)
@@ -464,7 +461,6 @@
 		  
 		  
 			first.append("text")
-			 //.attr("id","thirdState")
 			 .attr("x", 20)
 			 .attr("y", 280)
 			 .attr("font-size",16)
@@ -488,7 +484,6 @@
 			 .text("");
 			 
 			first.append("text")
-			 //.attr("id","thirdState")
 			 .attr("x", 20)
 			 .attr("y", 300)
 			 .attr("font-size",16)
@@ -686,7 +681,7 @@
 			// load data for a specific year
 			function loadByYear(year){
 				 
-	 		// define variables storing number of applications by state
+	 		// define json object for storing number of applications by state
 	 		var g_json;
 			
 				 
@@ -697,22 +692,22 @@
 	 				color.domain([d3.min(data, function(d) { return +d.value; }), 
 	 					          d3.max(data, function(d) { return +d.value; })]);
                
-	 				//Load in GeoJSON data
+	 				//load in GeoJSON data
 	 				d3.json("us-states.json", function(json) {
 	 				    g_json = json
 	 					for (var i = 0; i < data.length; i++) {			
 						
-	 						//Grab state name
+	 						//grab state name
 	 						var dataState = data[i].state;			
-	 						//Grab data value, and convert from string to float
+	 						//grab data value, and convert from string to float
 	 						var dataValue = parseFloat(data[i].value);		
-	 						//Find the corresponding state inside the GeoJSON
+	 						//find the corresponding state inside the GeoJSON
 	 						var country = data[i].COUNTRY_OF_CITIZENSHIP;
 	 						for (var j = 0; j < json.features.length; j++) {			
 	 							var jsonState = json.features[j].properties.name;
 	 							if (dataState == jsonState) {
 	 								g_json.features[j].properties[country]= dataValue;
-	 								//Stop looking through the JSON
+	 								//stop looking through the JSON
 	 								break;
 	 							}
 	 						 }
@@ -822,7 +817,8 @@
 							
   					                first.selectAll("path")
    					                   .style("fill", function(d) {
-   					   		        //Get data value
+   					   		        
+   					   		        //get data value for specific country
    					   		        var value = d.properties[country];	   		
    						   	 
 							        return color(value);
@@ -854,14 +850,10 @@
 									  	
 									 })
 									   .on("mouseout",function(){
-										  // d3.select("#tooltip").remove();
 										  d3.select("#tooltip").classed("hidden",true);
 									   })
 									  
-										
-									      
-									   
-									 
+						 
 							
 							         // link to the description column
 							        first.select("text#country")
@@ -879,7 +871,7 @@
 									  .style("opacity", 1)
 							          .text(number);
 							  
-							         // sort the state_num array to find out the first three
+							         // sort the state_num array to find out the first five states
 							         state_num.sort(function(a,b){return b[1]-a[1]});
 							         
 									 var first_name = state_num[0][0];
@@ -1127,7 +1119,7 @@
 		var labels1= ['2015','2016','2017'];
 		// button labels for employer type
 		var labels2= ['H-1B Independent Employers','H-1B Dependent Employers'];
-        // button labels for industry
+
         
 
         d3.select("#cityselector").property("selectedIndex", index);
@@ -1162,7 +1154,7 @@
 							   barplot.selectAll("rect").attr("height",0).attr("width",0);
 							   barplot.selectAll("text").text("");
 							   load_data(year_str,dependent_str,ind_code);
-							   // clear pack bubble, map and update year
+							 
 		                    });	
  		
 		var buttonGroups2= allButtons2.selectAll("g.button2")
@@ -1182,7 +1174,7 @@
 			                   barplot.selectAll("rect").attr("height",0).attr("width",0);
 			                   barplot.selectAll("text").text("");
 							   load_data(year_str,dependent_str,ind_code);
- 							   // clear pack bubble, map and update year
+ 							   
  		                    });	
  	 
  		
@@ -1376,7 +1368,7 @@
                                         
 
 								  second.selectAll("circle.wage")
-	   						             .append("title")			//Simple tooltip
+	   						             .append("title")			//simple tooltip
 	   						             .text(function(d) {
 	   								         return "Click inside the city circle to learn more";
 										 });
@@ -1384,14 +1376,18 @@
 								d3.csv("h1b_"+year+"_"+dependent.toLowerCase()+"_top5.csv", function(data_t){
 	 								    // choose the industry maximum and minimum median wages for barplots
 
-	 								    var max_wage = d3.max(data_t,function(d) { if(d.industry==code){return +d.median_wage;} });
-					                    var min_wage = d3.min(data_t,function(d) { if(d.industry==code){return +d.median_wage;} });
+	 								    var max_wage = d3.max(data_t,function(d) { if(d.industry==code){
+	 								    							 return +d.median_wage;} 
+	 								    							 });
+					                    var min_wage = d3.min(data_t,function(d) { if(d.industry==code){
+					                    							 return +d.median_wage;} 
+					                    							 });
 	 									
 	 									
 							            second.selectAll("circle.wage")
 										 
-										    .on("click",function(d){
-										    	second.selectAll("circle")
+										      .on("click",function(d){
+										    	  second.selectAll("circle")
 										    	     .style("fill","steelblue")
 										    	     .style("opacity",0.5);
 										    	     
@@ -1442,7 +1438,6 @@
 
 
 											// draw barplots
-
 											var xScale = d3.scaleLinear()
 										    			   .domain([min_wage,max_wage])
 										    			   .range([5,250]);
@@ -1452,8 +1447,7 @@
 												  			    .data(wages);
 										    
 										    
-										    update.exit()
-										          
+										    update.exit()		          
 				               				      .remove();
 										    
 											update.enter()
@@ -1465,7 +1459,8 @@
 				             					  .duration(1500)
 				             					  .ease(d3.easeCubic)
 												  .attr("width",function(d){
-												  	        return xScale(d);})
+												  	       return xScale(d);
+												  	    })
 												  .attr("height",20)
 												  .style("fill", "steelblue");
 
@@ -1475,27 +1470,24 @@
 												  			     .data(wages);
 										    
 										    
-										    update1.exit()
-										         
-				               				      .remove();
+										    update1.exit()	         
+				               				       .remove();
 										    
 											var enter1=update1.enter()
-
-
 												      .append("text")
 												      .attr("class","wage")
-			                                          .merge(update1)
-			                                          
+			                                          .merge(update1)                                
 												      .attr("y",function(d,i){ return i*60+15; })
 												      .attr("x",function(d){
-												  	        return xScale(d)+5;})
-				             					     .attr("font-size","12")
-				             					     .attr("fill",'rgb(96,96,96)')
-				             					     .style("opacity", 0)
-                                                     .transition().duration(1500)
-                                                     .style("opacity", 1)
-								                     .ease(d3.easeCubic)
-				             					     .text(function(d){return d;}) 
+												  	        return xScale(d)+5;
+												  	    })
+				             					      .attr("font-size","12")
+				             					      .attr("fill",'rgb(96,96,96)')
+				             					      .style("opacity", 0)
+                                                      .transition().duration(1500)
+                                                      .style("opacity", 1)
+								                      .ease(d3.easeCubic)
+				             					      .text(function(d){return d;}) 
 
 											// add text
 									        var update2 = barplot.selectAll("text.employer")
@@ -1503,11 +1495,10 @@
 										    
 										    
 										    update2.exit()
-										     
+
 				               				      .remove();
 										    
 											var enter=update2.enter()
-
 												  .append("text")
 												  .attr("class","employer")
 			                                      .merge(update2)
@@ -1519,10 +1510,7 @@
                                                   .transition().duration(1500)
                                                   .style("opacity", 1)
 								                  .ease(d3.easeCubic)
-				             					  .text(function(d,i){return (i+1)+'. '+d;})
-												  
-
-							  
+				             					  .text(function(d,i){return (i+1)+'. '+d;})						  
 						                      });
 			
 
@@ -1533,8 +1521,7 @@
 
 		 };
 		load_data(year_str,dependent_str,ind_code);
-        
-
+ 
 		</script>
 	</body>
 </html>
